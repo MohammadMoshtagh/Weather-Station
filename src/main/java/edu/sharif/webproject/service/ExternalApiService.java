@@ -18,21 +18,10 @@ public class ExternalApiService {
         this.restTemplate = new RestTemplate();
     }
 
-    public String sendRequest(String url, HttpMethod httpMethod) throws UnknownHttpStatusCodeException {
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        if (response.getStatusCode() != HttpStatus.OK) {
-            throw new UnknownHttpStatusCodeException("HTTP Response Code is not 200",
-                    response.getStatusCode().value(),
-                    response.getStatusCode().toString(), null, null, null);
-        }
-
-        return response.getBody();
-    }
-
     public String sendRequest(String url, HttpMethod httpMethod, HttpHeaders httpHeaders)
             throws UnknownHttpStatusCodeException {
         HttpEntity<String> entity = new HttpEntity<>("", httpHeaders);
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(url, httpMethod, entity, String.class);
         if (response.getStatusCode() != HttpStatus.OK) {
             throw new UnknownHttpStatusCodeException("HTTP Response Code is not 200",
                     response.getStatusCode().value(),

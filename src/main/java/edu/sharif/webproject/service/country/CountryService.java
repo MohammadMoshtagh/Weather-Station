@@ -34,7 +34,7 @@ public class CountryService {
     }
 
     public CountryNamesDto getAllCountriesNames() {
-        String responseBody = externalApiService.sendRequest(countryUrl, HttpMethod.GET);
+        String responseBody = externalApiService.sendRequest(countryUrl, HttpMethod.GET, null);
         return countryParserService.parseCountriesNames(responseBody);
     }
 
