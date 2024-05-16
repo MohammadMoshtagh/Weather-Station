@@ -1,4 +1,4 @@
-package edu.sharif.webproject.model;
+package edu.sharif.webproject.model.dto;
 
 import lombok.Getter;
 
@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class CountryNames {
+public class CountryNamesDto {
 
-    private final List<CountryName> countries;
+    private final List<CountryNameDto> countries;
     private int count;
 
-    public CountryNames() {
+    public CountryNamesDto() {
         this.countries = new ArrayList<>();
     }
 
-    public void addCountryName(CountryName countryName) {
+    public void addCountryName(CountryNameDto countryName) {
         countries.add(countryName);
         count++;
     }

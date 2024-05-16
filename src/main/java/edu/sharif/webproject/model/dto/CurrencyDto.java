@@ -1,14 +1,14 @@
-package edu.sharif.webproject.model;
+package edu.sharif.webproject.model.dto;
 
 import lombok.Getter;
 
 @Getter
-public class Currency {
+public class CurrencyDto {
 
     private String code;
     private String name;
 
-    public Currency(String code, String name) {
+    public CurrencyDto(String code, String name) {
         this.code = code;
         this.name = name;
     }

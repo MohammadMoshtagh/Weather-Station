@@ -1,9 +1,9 @@
-package edu.sharif.webproject.model;
+package edu.sharif.webproject.model.dto;
 
 import lombok.Getter;
 
 @Getter
-public class CountryWeather {
+public class CountryWeatherDto {
 
     private String country_name;
     private String capital;
@@ -12,7 +12,7 @@ public class CountryWeather {
     private float temp;
     private float humidity;
 
-    public CountryWeather(
+    public CountryWeatherDto(
             String country_name,
             String capital,
             float wind_speed,
