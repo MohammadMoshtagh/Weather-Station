@@ -4,12 +4,13 @@ import edu.sharif.webproject.model.dto.*;
 import edu.sharif.webproject.service.ExternalApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
 @Service
-@PropertySource("classpath:application-dev.properties")
+@PropertySource("classpath:application.properties")
 public class CountryService {
 
     private final ExternalApiService externalApiService;
@@ -33,11 +34,13 @@ public class CountryService {
         this.countryParserService = countryParserService;
     }
 
+    @Cacheable("CountriesCache")
     public CountryNamesDto getAllCountriesNames() {
         String responseBody = externalApiService.sendRequest(countryUrl, HttpMethod.GET, null);
         return countryParserService.parseCountriesNames(responseBody);
     }
 
+    @Cacheable(value = "CountryNameCache")
     public CountryDto getCountryByName(String countryName) {
         String resourceUrl = countryDetailsUrl + countryName;
         HttpHeaders headers = new HttpHeaders();
@@ -47,6 +50,7 @@ public class CountryService {
         return countryParserService.parseCountry(responseBody);
     }
 
+    @Cacheable("WeatherCache")
     public CountryWeatherDto getCountryWeatherByCountryName(String countryName) {
         var country = getCountryByName(countryName);
         String resourceUrl = countryWeatherUrl + country.getCapital();
