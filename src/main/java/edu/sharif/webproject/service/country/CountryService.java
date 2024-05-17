@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-@PropertySource("classpath:application-dev.properties")
 public class CountryService {
 
     private final ExternalApiService externalApiService;
