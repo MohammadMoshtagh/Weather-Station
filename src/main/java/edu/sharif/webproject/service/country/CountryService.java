@@ -1,5 +1,6 @@
 package edu.sharif.webproject.service.country;
 
+import com.google.gson.JsonParseException;
 import edu.sharif.webproject.model.dto.*;
 import edu.sharif.webproject.service.ExternalApiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application-dev.properties")
 public class CountryService {
 
     private final ExternalApiService externalApiService;
@@ -34,7 +36,7 @@ public class CountryService {
         this.countryParserService = countryParserService;
     }
 
-    @Cacheable("CountriesCache")
+    @Cacheable(value = "CountriesCache")
     public CountryNamesDto getAllCountriesNames() {
         String responseBody = externalApiService.sendRequest(countryUrl, HttpMethod.GET, null);
         return countryParserService.parseCountriesNames(responseBody);
@@ -47,10 +49,14 @@ public class CountryService {
         headers.add("X-Api-Key", ninjasApiKey);
 
         String responseBody = externalApiService.sendRequest(resourceUrl, HttpMethod.GET, headers);
-        return countryParserService.parseCountry(responseBody);
+        try {
+            return countryParserService.parseCountry(responseBody);
+        } catch (JsonParseException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Country not found!");
+        }
     }
 
-    @Cacheable("WeatherCache")
+    @Cacheable(value = "WeatherCache")
     public CountryWeatherDto getCountryWeatherByCountryName(String countryName) {
         var country = getCountryByName(countryName);
         String resourceUrl = countryWeatherUrl + country.getCapital();

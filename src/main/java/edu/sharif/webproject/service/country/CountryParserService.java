@@ -3,11 +3,9 @@ package edu.sharif.webproject.service.country;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import edu.sharif.webproject.model.dto.*;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.UnknownHttpStatusCodeException;
 
 @Service
 public class CountryParserService {
@@ -30,8 +28,11 @@ public class CountryParserService {
         return countryNames;
     }
 
-    public CountryDto parseCountry(String responseBody) {
+    public CountryDto parseCountry(String responseBody) throws JsonParseException {
         var jsonArray = parseToJsonArray(responseBody);
+        if (jsonArray.isEmpty()) {
+            throw new JsonParseException("Can not parse response body as json");
+        }
         var countryData = jsonArray.get(0).getAsJsonObject();
 
         var countryName = countryData.get("name").getAsString();
@@ -41,16 +42,9 @@ public class CountryParserService {
         var pop_growth = countryData.get("pop_growth").getAsFloat();
 
         var currencyJson = countryData.get("currency").getAsJsonObject();
-        var currency = new CurrencyDto(currencyJson.get("code").getAsString(),
-                currencyJson.get("name").getAsString());
+        var currency = new CurrencyDto(currencyJson.get("code").getAsString(), currencyJson.get("name").getAsString());
 
-        return new CountryDto(
-                countryName,
-                capitalName,
-                iso2,
-                population,
-                pop_growth,
-                currency);
+        return new CountryDto(countryName, capitalName, iso2, population, pop_growth, currency);
     }
 
     public CountryWeatherDto parseCityWeather(String responseBody, String countryName, String capital) {
@@ -61,13 +55,7 @@ public class CountryParserService {
         var temp = jsonObject.get("temp").getAsFloat();
         var humidity = jsonObject.get("humidity").getAsFloat();
 
-        return new CountryWeatherDto(
-                countryName,
-                capital,
-                windSpeed,
-                windDegrees,
-                temp,
-                humidity);
+        return new CountryWeatherDto(countryName, capital, windSpeed, windDegrees, temp, humidity);
     }
 
     private JsonObject parseToJsonObject(String responseBody) {

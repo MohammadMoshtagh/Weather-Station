@@ -8,11 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.UnknownHttpStatusCodeException;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.io.EOFException;
 
 @Service
 public class ExternalApiService {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public ExternalApiService() {
         this.restTemplate = new RestTemplate();
@@ -21,11 +24,11 @@ public class ExternalApiService {
     public String sendRequest(String url, HttpMethod httpMethod, HttpHeaders httpHeaders)
             throws UnknownHttpStatusCodeException {
         HttpEntity<String> entity = new HttpEntity<>("", httpHeaders);
-        ResponseEntity<String> response = restTemplate.exchange(url, httpMethod, entity, String.class);
-        if (response.getStatusCode() != HttpStatus.OK) {
-            throw new UnknownHttpStatusCodeException("HTTP Response Code is not 200",
-                    response.getStatusCode().value(),
-                    response.getStatusCode().toString(), null, null, null);
+        ResponseEntity<String> response;
+        try {
+            response = restTemplate.exchange(url, httpMethod, entity, String.class);
+        } catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "External API doesn't answer!");
         }
 
         return response.getBody();

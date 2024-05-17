@@ -6,6 +6,7 @@ import edu.sharif.webproject.model.dto.CountryWeatherDto;
 import edu.sharif.webproject.service.country.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
@@ -20,17 +21,17 @@ public class CountryController {
     }
 
     @GetMapping("")
-    public CountryNamesDto getCountries() throws Exception {
+    public CountryNamesDto getCountries() {
         return countryService.getAllCountriesNames();
     }
 
     @GetMapping("/{name}")
-    public CountryDto getCountry(@PathVariable String name) throws Exception {
+    public CountryDto getCountry(@PathVariable String name) {
         return countryService.getCountryByName(name);
     }
 
     @GetMapping("/{name}/weather")
-    public CountryWeatherDto getCountryWeather(@PathVariable String name) throws Exception {
+    public CountryWeatherDto getCountryWeather(@PathVariable String name) {
         return countryService.getCountryWeatherByCountryName(name);
     }
 }
