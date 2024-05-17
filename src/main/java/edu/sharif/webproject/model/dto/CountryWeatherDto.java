@@ -1,28 +1,35 @@
 package edu.sharif.webproject.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
 public class CountryWeatherDto {
 
-    private String country_name;
+    @JsonProperty("country_name")
+    private String countryName;
+    @JsonProperty
     private String capital;
-    private float wind_speed;
-    private float wind_degrees;
+    @JsonProperty("wind_speed")
+    private float windSpeed;
+    @JsonProperty("wind_degrees")
+    private float windDegrees;
+    @JsonProperty
     private float temp;
+    @JsonProperty
     private float humidity;
 
     public CountryWeatherDto(
-            String country_name,
+            String CountryName,
             String capital,
             float wind_speed,
             float wind_degrees,
             float temp,
             float humidity) {
-        this.country_name = country_name;
+        this.countryName = CountryName;
         this.capital = capital;
-        this.wind_speed = wind_speed;
-        this.wind_degrees = wind_degrees;
+        this.windSpeed = wind_speed;
+        this.windDegrees = wind_degrees;
         this.temp = temp;
         this.humidity = humidity;
     }

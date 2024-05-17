@@ -95,7 +95,7 @@ public class CountryControllerTest {
                 .andExpect(jsonPath("$.capital").value(iranDto.getCapital()))
                 .andExpect(jsonPath("$.iso2").value(iranDto.getIso2()))
                 .andExpect(jsonPath("$.population").value(iranDto.getPopulation()))
-                .andExpect(jsonPath("$.pop_growth").value(iranDto.getPop_growth()));
+                .andExpect(jsonPath("$.pop_growth").value(iranDto.getPopGrowth()));
     }
 
     @Test
@@ -103,10 +103,10 @@ public class CountryControllerTest {
         this.mockMvc.perform(get("/countries/US/weather"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.country_name").value(usWeatherDto.getCountry_name()))
+                .andExpect(jsonPath("$.country_name").value(usWeatherDto.getCountryName()))
                 .andExpect(jsonPath("$.capital").value(usWeatherDto.getCapital()))
-                .andExpect(jsonPath("$.wind_speed").value(usWeatherDto.getWind_speed()))
-                .andExpect(jsonPath("$.wind_degrees").value(usWeatherDto.getWind_degrees()))
+                .andExpect(jsonPath("$.wind_speed").value(usWeatherDto.getWindSpeed()))
+                .andExpect(jsonPath("$.wind_degrees").value(usWeatherDto.getWindDegrees()))
                 .andExpect(jsonPath("$.temp").value(usWeatherDto.getTemp()))
                 .andExpect(jsonPath("$.humidity").value(usWeatherDto.getHumidity()));
     }

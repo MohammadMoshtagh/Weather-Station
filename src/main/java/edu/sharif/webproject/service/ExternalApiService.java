@@ -1,5 +1,6 @@
 package edu.sharif.webproject.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,12 +18,12 @@ public class ExternalApiService {
 
     private final RestTemplate restTemplate;
 
-    public ExternalApiService() {
-        this.restTemplate = new RestTemplate();
+    @Autowired
+    public ExternalApiService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
-    public String sendRequest(String url, HttpMethod httpMethod, HttpHeaders httpHeaders)
-            throws UnknownHttpStatusCodeException {
+    public String sendRequest(String url, HttpMethod httpMethod, HttpHeaders httpHeaders) {
         HttpEntity<String> entity = new HttpEntity<>("", httpHeaders);
         ResponseEntity<String> response;
         try {

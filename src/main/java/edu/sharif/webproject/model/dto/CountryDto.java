@@ -1,15 +1,22 @@
 package edu.sharif.webproject.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
 public class CountryDto {
 
+    @JsonProperty
     private String name;
+    @JsonProperty
     private String capital;
+    @JsonProperty
     private String iso2;
+    @JsonProperty
     private long population;
-    private float pop_growth;
+    @JsonProperty("pop_growth")
+    private float popGrowth;
+    @JsonProperty
     private CurrencyDto currency;
 
     public CountryDto(String name,
@@ -22,7 +29,7 @@ public class CountryDto {
         this.capital = capital;
         this.iso2 = iso2;
         this.population = population;
-        this.pop_growth = pop_growth;
+        this.popGrowth = pop_growth;
         this.currency = currency;
     }
 
