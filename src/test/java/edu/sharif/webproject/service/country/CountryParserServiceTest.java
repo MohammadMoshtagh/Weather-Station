@@ -1,4 +1,4 @@
-package edu.sharif.webproject.service;
+package edu.sharif.webproject.service.country;
 
 import edu.sharif.webproject.model.dto.*;
 import edu.sharif.webproject.service.country.CountryParserService;
