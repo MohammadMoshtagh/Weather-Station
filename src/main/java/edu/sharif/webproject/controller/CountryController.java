@@ -6,7 +6,6 @@ import edu.sharif.webproject.model.dto.CountryWeatherDto;
 import edu.sharif.webproject.service.country.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
