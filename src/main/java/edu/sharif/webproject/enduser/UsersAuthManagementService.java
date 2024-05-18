@@ -28,7 +28,7 @@ public class UsersAuthManagementService implements UserDetailsService {
             EndUserEntity endUser = endUserOptional.get();
             return User.withUsername(username)
                     .password(endUser.getPassword())
-                    .roles(endUser.getRole())
+                    .roles(endUser.getRole().name())
                     .build();
         } else {
             throw new UsernameNotFoundException("Could not find user with username " + username);

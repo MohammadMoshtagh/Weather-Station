@@ -4,8 +4,6 @@ import edu.sharif.webproject.country.dto.CountryDto;
 import edu.sharif.webproject.country.dto.CountryNameDto;
 import edu.sharif.webproject.country.dto.CountryNamesDto;
 import edu.sharif.webproject.country.dto.CountryWeatherDto;
-import edu.sharif.webproject.model.dto.*;
-import edu.sharif.webproject.country.CountryParserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
