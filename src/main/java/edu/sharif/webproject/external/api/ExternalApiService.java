@@ -1,4 +1,4 @@
-package edu.sharif.webproject.service;
+package edu.sharif.webproject.external.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;

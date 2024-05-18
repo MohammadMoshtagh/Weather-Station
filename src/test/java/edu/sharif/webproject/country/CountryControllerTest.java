@@ -1,4 +1,4 @@
-package edu.sharif.webproject.controller;
+package edu.sharif.webproject.country;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.mockito.Mockito.when;
@@ -6,8 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import edu.sharif.webproject.country.dto.*;
 import edu.sharif.webproject.model.dto.*;
-import edu.sharif.webproject.service.country.CountryService;
+import edu.sharif.webproject.country.CountryService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

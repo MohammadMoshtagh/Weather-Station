@@ -1,9 +1,8 @@
-package edu.sharif.webproject.controller;
+package edu.sharif.webproject.country;
 
-import edu.sharif.webproject.model.dto.CountryDto;
-import edu.sharif.webproject.model.dto.CountryNamesDto;
-import edu.sharif.webproject.model.dto.CountryWeatherDto;
-import edu.sharif.webproject.service.country.CountryService;
+import edu.sharif.webproject.country.dto.CountryDto;
+import edu.sharif.webproject.country.dto.CountryNamesDto;
+import edu.sharif.webproject.country.dto.CountryWeatherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

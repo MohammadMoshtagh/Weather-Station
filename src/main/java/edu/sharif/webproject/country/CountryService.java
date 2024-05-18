@@ -1,8 +1,10 @@
-package edu.sharif.webproject.service.country;
+package edu.sharif.webproject.country;
 
 import com.google.gson.JsonParseException;
-import edu.sharif.webproject.model.dto.*;
-import edu.sharif.webproject.service.ExternalApiService;
+import edu.sharif.webproject.country.dto.CountryDto;
+import edu.sharif.webproject.country.dto.CountryNamesDto;
+import edu.sharif.webproject.country.dto.CountryWeatherDto;
+import edu.sharif.webproject.external.api.ExternalApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;

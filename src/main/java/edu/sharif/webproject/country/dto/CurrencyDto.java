@@ -1,4 +1,4 @@
-package edu.sharif.webproject.model.dto;
+package edu.sharif.webproject.country.dto;
 
 import lombok.Getter;
 

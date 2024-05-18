@@ -1,10 +1,10 @@
-package edu.sharif.webproject.service.country;
+package edu.sharif.webproject.country;
 
-import edu.sharif.webproject.model.dto.CountryDto;
-import edu.sharif.webproject.model.dto.CountryNameDto;
-import edu.sharif.webproject.model.dto.CountryNamesDto;
-import edu.sharif.webproject.model.dto.CountryWeatherDto;
-import edu.sharif.webproject.service.country.CountryService;
+import edu.sharif.webproject.country.dto.CountryDto;
+import edu.sharif.webproject.country.dto.CountryNameDto;
+import edu.sharif.webproject.country.dto.CountryNamesDto;
+import edu.sharif.webproject.country.dto.CountryWeatherDto;
+import edu.sharif.webproject.country.CountryService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
