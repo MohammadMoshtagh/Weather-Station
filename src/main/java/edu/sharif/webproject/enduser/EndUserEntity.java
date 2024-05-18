@@ -19,4 +19,6 @@ public class EndUserEntity {
     private String password;
     @Enumerated(EnumType.STRING)
     private EndUserRoleEnum role;
+    @Column(nullable = false)
+    private Boolean enable;
 }

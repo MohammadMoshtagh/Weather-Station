@@ -1,8 +1,9 @@
 package edu.sharif.webproject.config;
 
 import com.google.gson.Gson;
+import edu.sharif.webproject.config.security.AdminProperties;
 import edu.sharif.webproject.enduser.EndUserRepository;
-import edu.sharif.webproject.enduser.UsersAuthManagementService;
+import edu.sharif.webproject.security.UsersAuthManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,24 +20,25 @@ import org.springframework.web.client.RestTemplate;
 public class ApplicationConfig {
 
     private final EndUserRepository endUserRepository;
+    private final AdminProperties adminProperties;
 
     @Autowired
-    public ApplicationConfig(EndUserRepository endUserRepository) {
+    public ApplicationConfig(EndUserRepository endUserRepository, AdminProperties adminProperties) {
         this.endUserRepository = endUserRepository;
+        this.adminProperties = adminProperties;
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authProvider =new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService(endUserRepository));
+    public AuthenticationProvider authenticationProvider(PasswordEncoder passwordEncoder) {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService(endUserRepository, passwordEncoder));
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
-
     }
 
     @Bean
@@ -46,8 +48,10 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(EndUserRepository endUserRepository){
-        return new UsersAuthManagementService(endUserRepository);
+    public UserDetailsService userDetailsService(EndUserRepository endUserRepository, PasswordEncoder passwordEncoder) {
+        UsersAuthManagementService userDetailsService = new UsersAuthManagementService(endUserRepository, passwordEncoder);
+        userDetailsService.save(adminProperties.getEndUser());
+        return userDetailsService;
     }
 
     @Bean
