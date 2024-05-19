@@ -1,6 +1,5 @@
 package edu.sharif.webproject.security;
 
-import edu.sharif.webproject.config.security.AdminProperties;
 import edu.sharif.webproject.enduser.EndUserEntity;
 import edu.sharif.webproject.enduser.EndUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +42,10 @@ public class UsersAuthManagementService implements UserDetailsService {
 
     @Transactional
     public EndUserEntity save(EndUserEntity user){
-
         EndUserEntity registeredUser = new EndUserEntity();
         registeredUser.setUsername(user.getUsername());
         registeredUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        registeredUser.setEnable(true);
+        registeredUser.setEnable(user.getEnable());
         registeredUser.setRole(user.getRole());
 
         return endUserRepository.save(registeredUser);

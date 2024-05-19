@@ -50,7 +50,9 @@ public class ApplicationConfig {
     @Bean
     public UserDetailsService userDetailsService(EndUserRepository endUserRepository, PasswordEncoder passwordEncoder) {
         UsersAuthManagementService userDetailsService = new UsersAuthManagementService(endUserRepository, passwordEncoder);
-        userDetailsService.save(adminProperties.getEndUser());
+        if (endUserRepository.findEndUserEntityByUsername(adminProperties.getUsername()).isEmpty()) {
+            userDetailsService.save(adminProperties.getEndUser());
+        }
         return userDetailsService;
     }
 

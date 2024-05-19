@@ -1,5 +1,6 @@
 package edu.sharif.webproject.security;
 
+import edu.sharif.webproject.enduser.EndUserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,19 +30,16 @@ public class JwtService {
         final Claims claims=extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
-    public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(),userDetails);
+    public String generateToken(String username){
+        return generateToken(new HashMap<>(), username);
 
     }
 
-    public String generateToken(
-            Map<String, Object> extraClaims,
-            UserDetails userDetails
-    ){
+    public String generateToken(Map<String, Object> extraClaims, String username) {
         return Jwts
                 .builder()
                 .claims(extraClaims)
-                .subject(userDetails.getUsername())
+                .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis()+1000*60*24)) //how long valid
                 .signWith(getSignInKey())
