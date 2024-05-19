@@ -48,6 +48,10 @@ public class AuthService {
 
         endUserRepository.save(endUser);
 
+        return login(userCredential);
+    }
+
+    public String login(UserCredential userCredential) {
         UsernamePasswordAuthenticationToken authenticationToken
                 = new UsernamePasswordAuthenticationToken(userCredential.username(),userCredential.password());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
