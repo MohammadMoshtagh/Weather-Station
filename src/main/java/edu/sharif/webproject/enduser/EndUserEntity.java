@@ -28,4 +28,8 @@ public class EndUserEntity {
     @OneToMany(mappedBy = "endUser")
     @Column(name = "api_tokens")
     private List<ApiTokenEntity> apiTokens;
+
+    public EndUserDto toDto() {
+        return new EndUserDto(username, role, enable);
+    }
 }

@@ -8,16 +8,24 @@ Content-Type: application/json
 }
 > {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
 
-### Country Get
-GET localhost:8080/countries/iran
-Authorization: {{auth_token}}
-
-### API Get
+### Get API Key
 POST localhost:8080/user/api-tokens
 Content-Type: application/json
 Authorization: {{auth_token}}
 
 {
-  "name": "aliz",
+  "name": "mahdi",
   "expire_date": "2025-01-01T23:59:59Z"
 }
+
+### Request Using API Key
+GET localhost:8080/countries/iran
+X-API-Key: 88327df6-55c4-47a3-a533-1ddcbfef6c51
+
+### Get all API Keys
+GET localhost:8080/user/api-tokens
+Authorization: {{auth_token}}
+
+### Delete API Key
+DELETE localhost:8080/user/api-tokens
+X-API-Key: 0c6146c2-f0df-4b5c-b840-55670c2831d7

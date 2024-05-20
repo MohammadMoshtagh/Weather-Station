@@ -4,15 +4,13 @@ import static edu.sharif.webproject.enduser.EndUserRoleEnum.USER;
 
 import edu.sharif.webproject.enduser.EndUserEntity;
 import edu.sharif.webproject.enduser.EndUserRepository;
+import edu.sharif.webproject.security.exception.InvalidApiKeyRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -36,9 +34,9 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
-    public String register(UserCredential userCredential) {
+    public String register(UserCredential userCredential) throws InvalidApiKeyRequest {
         if (checkDuplicateUsername(userCredential.username())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is already used!");
+            throw new InvalidApiKeyRequest();
         }
         EndUserEntity endUser = new EndUserEntity();
         endUser.setUsername(userCredential.username());

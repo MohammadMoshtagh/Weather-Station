@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class ApiTokenRequest {
-    @JsonProperty
+    @JsonProperty("name")
     private String name;
     @JsonProperty("expire_date")
     @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ssZ")

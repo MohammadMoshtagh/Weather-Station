@@ -13,12 +13,12 @@ public class ApiTokenDto {
     private String name;
     @JsonProperty("api_token")
     private String apiToken;
-//    @JsonProperty("expire_date")
-//    private Date expirationDate;
+    @JsonProperty("expire_date")
+    private Date expirationDate;
 
     public ApiTokenDto(String name, String apiToken, Date expirationDate) {
         this.name = name;
         this.apiToken = apiToken;
-//        this.expirationDate = expirationDate;
+        this.expirationDate = expirationDate;
     }
 }

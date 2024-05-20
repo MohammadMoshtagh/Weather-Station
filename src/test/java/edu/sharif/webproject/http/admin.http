@@ -8,16 +8,11 @@ Content-Type: application/json
 }
 > {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
 
-### Country Get
-GET localhost:8080/countries/iran
+### Change State of Users
+PUT localhost:8080/admin/users?username=mazzi&active=true
 Authorization: {{auth_token}}
 
-### API Get
-POST localhost:8080/user/api-tokens
-Content-Type: application/json
+### Get All Users
+GET localhost:8080/admin/users
 Authorization: {{auth_token}}
 
-{
-  "name": "aliz",
-  "expire_date": "2025-01-01T23:59:59Z"
-}

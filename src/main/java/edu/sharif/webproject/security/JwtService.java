@@ -34,7 +34,6 @@ public class JwtService {
 
     public String generateToken(String username) {
         return generateToken(new HashMap<>(), username);
-
     }
 
     public String generateToken(Map<String, Object> extraClaims, String username) {
@@ -43,7 +42,7 @@ public class JwtService {
                 .claims(extraClaims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) //how long valid
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) // how long valid
                 .signWith(getSignInKey())
                 .compact();
     }
