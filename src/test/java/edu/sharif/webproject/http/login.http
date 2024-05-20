@@ -1,0 +1,24 @@
+# curl -X POST localhost:8080/users/login -d '{"username": "admin", "password": "admin"}' -H "Content-Type: application/json" -v
+POST localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+> {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
+
+###
+# curl -X POST localhost:8080/user/api-tokens -d '{"name": "aliz", "expirationDate": "2025-01-01T23:59:59Z"}' -H "Content-Type: application/json" -v
+POST localhost:8080/user/api
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+{
+  "name": "aliz",
+  "expire_date": "2025-01-01T23:59:59Z"
+}
+
+###
+
+

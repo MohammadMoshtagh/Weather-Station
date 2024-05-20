@@ -34,6 +34,7 @@ public class UsersAuthManagementService implements UserDetailsService {
             return User.withUsername(username)
                     .password(endUser.getPassword())
                     .roles(endUser.getRole().name())
+                    .disabled(!endUser.getEnable())
                     .build();
         } else {
             throw new UsernameNotFoundException("Could not find user with username " + username);

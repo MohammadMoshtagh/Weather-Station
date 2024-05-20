@@ -1,8 +1,11 @@
 package edu.sharif.webproject.enduser;
 
+import edu.sharif.webproject.enduser.api.ApiTokenEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "end_user")
@@ -21,4 +24,8 @@ public class EndUserEntity {
     private EndUserRoleEnum role;
     @Column(nullable = false)
     private Boolean enable;
+
+    @OneToMany(mappedBy = "endUser")
+    @Column(name = "api_tokens")
+    private List<ApiTokenEntity> apiTokens;
 }
