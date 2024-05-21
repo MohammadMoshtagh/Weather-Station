@@ -1,6 +1,7 @@
 package edu.sharif.webproject.security;
 
-import edu.sharif.webproject.enduser.EndUserDto;
+import edu.sharif.webproject.enduser.entity.dto.EndUserDto;
+import edu.sharif.webproject.security.entity.dto.UserCredential;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;

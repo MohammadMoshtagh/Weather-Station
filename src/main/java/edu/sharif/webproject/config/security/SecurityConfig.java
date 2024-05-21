@@ -1,7 +1,7 @@
 package edu.sharif.webproject.config.security;
 
-import edu.sharif.webproject.security.ApiTokenAuthenticationFilter;
-import edu.sharif.webproject.security.JwtAuthenticationFilter;
+import edu.sharif.webproject.security.filter.ApiTokenAuthenticationFilter;
+import edu.sharif.webproject.security.filter.JwtAuthenticationFilter;
 import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static edu.sharif.webproject.enduser.EndUserRoleEnum.ADMIN;
+import static edu.sharif.webproject.enduser.entity.EndUserRoleEnum.ADMIN;
 
 @Configuration
 @EnableWebSecurity

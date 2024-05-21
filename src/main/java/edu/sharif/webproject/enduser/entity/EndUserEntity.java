@@ -1,6 +1,7 @@
-package edu.sharif.webproject.enduser;
+package edu.sharif.webproject.enduser.entity;
 
-import edu.sharif.webproject.enduser.api.ApiTokenEntity;
+import edu.sharif.webproject.api.entity.ApiTokenEntity;
+import edu.sharif.webproject.enduser.entity.dto.EndUserDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

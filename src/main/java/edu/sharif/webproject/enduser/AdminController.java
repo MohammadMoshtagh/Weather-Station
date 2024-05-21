@@ -1,9 +1,8 @@
 package edu.sharif.webproject.enduser;
 
+import edu.sharif.webproject.enduser.entity.dto.EndUsersResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/admin")

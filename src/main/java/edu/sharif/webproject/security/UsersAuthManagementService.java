@@ -1,7 +1,7 @@
 package edu.sharif.webproject.security;
 
-import edu.sharif.webproject.enduser.EndUserEntity;
-import edu.sharif.webproject.enduser.EndUserRepository;
+import edu.sharif.webproject.enduser.entity.EndUserEntity;
+import edu.sharif.webproject.enduser.entity.EndUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

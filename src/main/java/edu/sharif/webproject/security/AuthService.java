@@ -1,8 +1,9 @@
 package edu.sharif.webproject.security;
 
-import edu.sharif.webproject.enduser.EndUserDto;
-import edu.sharif.webproject.enduser.EndUserEntity;
-import edu.sharif.webproject.enduser.EndUserRepository;
+import edu.sharif.webproject.enduser.entity.dto.EndUserDto;
+import edu.sharif.webproject.enduser.entity.EndUserEntity;
+import edu.sharif.webproject.enduser.entity.EndUserRepository;
+import edu.sharif.webproject.security.entity.dto.UserCredential;
 import edu.sharif.webproject.security.exception.UsernameAlreadyInUseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static edu.sharif.webproject.enduser.EndUserRoleEnum.USER;
+import static edu.sharif.webproject.enduser.entity.EndUserRoleEnum.USER;
 
 @Service
 @RequiredArgsConstructor

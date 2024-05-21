@@ -1,15 +1,15 @@
 package edu.sharif.webproject.security;
 
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
-import static edu.sharif.webproject.enduser.EndUserRoleEnum.USER;
+import static edu.sharif.webproject.enduser.entity.EndUserRoleEnum.USER;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import edu.sharif.webproject.PostgresqlTestContainersExtension;
-import edu.sharif.webproject.enduser.EndUserEntity;
-import edu.sharif.webproject.enduser.EndUserRepository;
+import edu.sharif.webproject.enduser.entity.EndUserEntity;
+import edu.sharif.webproject.enduser.entity.EndUserRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

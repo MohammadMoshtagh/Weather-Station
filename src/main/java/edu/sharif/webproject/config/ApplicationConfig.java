@@ -2,7 +2,7 @@ package edu.sharif.webproject.config;
 
 import com.google.gson.Gson;
 import edu.sharif.webproject.config.security.AdminProperties;
-import edu.sharif.webproject.enduser.EndUserRepository;
+import edu.sharif.webproject.enduser.entity.EndUserRepository;
 import edu.sharif.webproject.security.UsersAuthManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

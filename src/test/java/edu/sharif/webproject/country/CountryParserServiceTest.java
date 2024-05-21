@@ -1,9 +1,9 @@
 package edu.sharif.webproject.country;
 
-import edu.sharif.webproject.country.dto.CountryDto;
-import edu.sharif.webproject.country.dto.CountryNameDto;
-import edu.sharif.webproject.country.dto.CountryNamesResponse;
-import edu.sharif.webproject.country.dto.CountryWeatherDto;
+import edu.sharif.webproject.country.entity.dto.CountryDto;
+import edu.sharif.webproject.country.entity.dto.CountryNameDto;
+import edu.sharif.webproject.country.entity.dto.CountryNamesResponse;
+import edu.sharif.webproject.country.entity.dto.CountryWeatherDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

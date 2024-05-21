@@ -1,11 +1,10 @@
 package edu.sharif.webproject.enduser;
 
-import edu.sharif.webproject.enduser.api.ApiTokenDto;
-import edu.sharif.webproject.enduser.api.ApiTokenRequest;
-import edu.sharif.webproject.enduser.api.ApiTokensResponse;
-import edu.sharif.webproject.enduser.api.DeleteApiTokenResponse;
+import edu.sharif.webproject.api.entity.dto.ApiTokenDto;
+import edu.sharif.webproject.api.entity.dto.ApiTokenRequest;
+import edu.sharif.webproject.api.entity.dto.ApiTokensResponse;
+import edu.sharif.webproject.api.entity.dto.DeleteApiTokenResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

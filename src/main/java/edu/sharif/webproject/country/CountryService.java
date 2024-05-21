@@ -1,9 +1,9 @@
 package edu.sharif.webproject.country;
 
 import com.google.gson.JsonParseException;
-import edu.sharif.webproject.country.dto.CountryDto;
-import edu.sharif.webproject.country.dto.CountryNamesResponse;
-import edu.sharif.webproject.country.dto.CountryWeatherDto;
+import edu.sharif.webproject.country.entity.dto.CountryDto;
+import edu.sharif.webproject.country.entity.dto.CountryNamesResponse;
+import edu.sharif.webproject.country.entity.dto.CountryWeatherDto;
 import edu.sharif.webproject.external_api.ExternalApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,23 +1,24 @@
-package edu.sharif.webproject.enduser.api;
+package edu.sharif.webproject.api.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 @Getter
 @Setter
-public class ApiTokenRequest {
-    @JsonProperty("name")
+public class ApiTokenDto {
+    @JsonProperty
     private String name;
+    @JsonProperty("api_token")
+    private String apiToken;
     @JsonProperty("expire_date")
-    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ssZ")
     private Date expirationDate;
 
-    public ApiTokenRequest(String name, Date expirationDate) {
+    public ApiTokenDto(String name, String apiToken, Date expirationDate) {
         this.name = name;
+        this.apiToken = apiToken;
         this.expirationDate = expirationDate;
     }
 }

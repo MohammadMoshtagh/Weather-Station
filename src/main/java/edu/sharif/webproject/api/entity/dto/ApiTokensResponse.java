@@ -1,4 +1,4 @@
-package edu.sharif.webproject.enduser.api;
+package edu.sharif.webproject.api.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

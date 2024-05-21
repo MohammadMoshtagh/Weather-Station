@@ -1,4 +1,4 @@
-package edu.sharif.webproject.country.dto;
+package edu.sharif.webproject.country.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

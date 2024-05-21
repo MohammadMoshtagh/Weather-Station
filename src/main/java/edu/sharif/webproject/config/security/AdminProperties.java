@@ -1,12 +1,11 @@
 package edu.sharif.webproject.config.security;
 
-import edu.sharif.webproject.enduser.EndUserEntity;
-import edu.sharif.webproject.enduser.EndUserRoleEnum;
+import edu.sharif.webproject.enduser.entity.EndUserEntity;
+import edu.sharif.webproject.enduser.entity.EndUserRoleEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ConfigurationProperties(prefix = "admin")

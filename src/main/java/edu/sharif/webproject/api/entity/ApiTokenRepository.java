@@ -1,8 +1,7 @@
-package edu.sharif.webproject.enduser.api;
+package edu.sharif.webproject.api.entity;
 
 
-import edu.sharif.webproject.enduser.EndUserEntity;
-import org.springframework.data.domain.Page;
+import edu.sharif.webproject.enduser.entity.EndUserEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

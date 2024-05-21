@@ -1,11 +1,9 @@
 package edu.sharif.webproject.country;
 
-import edu.sharif.webproject.country.dto.CountryDto;
-import edu.sharif.webproject.country.dto.CountryNameDto;
-import edu.sharif.webproject.country.dto.CountryNamesResponse;
-import edu.sharif.webproject.country.dto.CountryWeatherDto;
+import edu.sharif.webproject.country.entity.dto.CountryDto;
+import edu.sharif.webproject.country.entity.dto.CountryNamesResponse;
+import edu.sharif.webproject.country.entity.dto.CountryWeatherDto;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.query.Page;
 import org.springframework.web.bind.annotation.*;
 
 

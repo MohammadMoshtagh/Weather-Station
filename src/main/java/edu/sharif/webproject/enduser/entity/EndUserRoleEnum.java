@@ -1,4 +1,4 @@
-package edu.sharif.webproject.enduser;
+package edu.sharif.webproject.enduser.entity;
 
 public enum EndUserRoleEnum {
     USER(0),

@@ -1,5 +1,6 @@
-package edu.sharif.webproject.security;
+package edu.sharif.webproject.security.filter;
 
+import edu.sharif.webproject.security.JwtService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.Servlet;

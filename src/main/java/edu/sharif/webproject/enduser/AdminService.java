@@ -1,13 +1,14 @@
 package edu.sharif.webproject.enduser;
 
+import edu.sharif.webproject.enduser.entity.EndUserEntity;
+import edu.sharif.webproject.enduser.entity.EndUserRepository;
+import edu.sharif.webproject.enduser.entity.dto.EndUsersResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service

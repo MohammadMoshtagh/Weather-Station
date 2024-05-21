@@ -1,4 +1,4 @@
-package edu.sharif.webproject.enduser.api;
+package edu.sharif.webproject.api.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
