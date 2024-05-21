@@ -4,7 +4,7 @@ import com.google.gson.JsonParseException;
 import edu.sharif.webproject.country.dto.CountryDto;
 import edu.sharif.webproject.country.dto.CountryNamesDto;
 import edu.sharif.webproject.country.dto.CountryWeatherDto;
-import edu.sharif.webproject.external.api.ExternalApiService;
+import edu.sharif.webproject.external_api.ExternalApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;

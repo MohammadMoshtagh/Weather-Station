@@ -1,7 +1,6 @@
 package edu.sharif.webproject.enduser;
 
 import edu.sharif.webproject.enduser.api.*;
-import edu.sharif.webproject.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,64 +17,46 @@ import java.util.stream.Collectors;
 public class EndUserService {
 
     private final EndUserRepository userRepository;
-    private final ApiTokenRepository apiTokenRepository;
+    private final ApiTokenService apiTokenService;
 
     public ApiTokenDto buildApiToken(ApiTokenRequest apiTokenRequest) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<EndUserEntity> endUserOptional = userRepository.findEndUserEntityByUsername(username);
-        if (endUserOptional.isEmpty()) {
-            throw new UsernameNotFoundException("Username not found!");
-        }
-        EndUserEntity endUser = endUserOptional.get();
-        ApiTokenEntity apiTokenEntity = new ApiTokenEntity();
-        apiTokenEntity.setEndUser(endUser);
-        apiTokenEntity.setName(apiTokenRequest.getName());
-        apiTokenEntity.setExpirationDate(apiTokenRequest.getExpirationDate());
-        apiTokenEntity.setApiToken(UUID.randomUUID().toString());
-        return apiTokenRepository.save(apiTokenEntity).toDto();
+        EndUserEntity endUser = getEndUserEntity();
+        ApiTokenEntity apiToken = apiTokenService.buildApiToken(
+                endUser,
+                apiTokenRequest.getName(),
+                apiTokenRequest.getExpirationDate());
+        apiToken = apiTokenService.saveApiToken(apiToken);
+        return apiToken.toDto();
     }
 
-    public ApiTokensDto getAllApiTokens() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<EndUserEntity> endUserOptional = userRepository.findEndUserEntityByUsername(username);
-        if (endUserOptional.isEmpty()) {
-            throw new UsernameNotFoundException("Username not found!");
-        }
-        EndUserEntity endUser = endUserOptional.get();
-        Optional<List<ApiTokenEntity>> apiTokensOptional = apiTokenRepository.findApiTokenEntitiesByEndUser(endUser);
-        if (apiTokensOptional.isEmpty()) {
-            return new ApiTokensDto();
-        }
-
-        List<ApiTokenDto> apiTokenDtos = apiTokensOptional.get().stream().map(ApiTokenEntity::toDto).map(apiTokenDto -> {
-            apiTokenDto.setApiToken("API ***");
-            return apiTokenDto;
-        }).toList();
-        ApiTokensDto apiTokensDto = new ApiTokensDto();
-        apiTokensDto.setApiTokens(apiTokenDtos);
-        return apiTokensDto;
+    public ApiTokensResponse getAllApiTokens() {
+        EndUserEntity endUser = getEndUserEntity();
+        List<ApiTokenEntity> apiTokens = apiTokenService.getApiTokensByEndUser(endUser);
+        List<ApiTokenDto> apiTokenDtos = apiTokens.stream().map(ApiTokenEntity::toDto)
+                .peek(apiTokenDto -> apiTokenDto.setApiToken("API ***")).toList();
+        return new ApiTokensResponse(apiTokenDtos);
     }
 
     public DeleteApiTokenResponse deleteApiToken(String apiKeyToDelete) {
+        EndUserEntity endUser = getEndUserEntity();
+        List<ApiTokenEntity> apiTokens = apiTokenService.getApiTokensByEndUser(endUser);
+        Map<String, ApiTokenEntity> apiTokensMap = apiTokens.stream()
+                .collect(Collectors.toMap(ApiTokenEntity::getApiToken, apiToken -> apiToken));
+        if (!apiTokensMap.containsKey(apiKeyToDelete)) {
+            return new DeleteApiTokenResponse(false);
+        }
+        ApiTokenEntity apiTokenEntityToDelete = apiTokensMap.get(apiKeyToDelete);
+        apiTokenService.deleteApiToken(apiTokenEntityToDelete);
+        return new DeleteApiTokenResponse(true);
+    }
+
+    private EndUserEntity getEndUserEntity() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<EndUserEntity> endUserOptional = userRepository.findEndUserEntityByUsername(username);
         if (endUserOptional.isEmpty()) {
             throw new UsernameNotFoundException("Username not found!");
         }
-        EndUserEntity endUser = endUserOptional.get();
-        Optional<List<ApiTokenEntity>> apiTokensOptional = apiTokenRepository.findApiTokenEntitiesByEndUser(endUser);
-        if (apiTokensOptional.isEmpty()) {
-            return new DeleteApiTokenResponse(false);
-        }
-        Map<String, ApiTokenEntity> apiTokens = apiTokensOptional.get().stream().collect(Collectors.toMap(ApiTokenEntity::getApiToken, x -> x));
-        if (!apiTokens.containsKey(apiKeyToDelete)) {
-            return new DeleteApiTokenResponse(false);
-        }
-        ApiTokenEntity apiTokenEntityToDelete = apiTokens.get(apiKeyToDelete);
-        apiTokenRepository.delete(apiTokenEntityToDelete);
-        return new DeleteApiTokenResponse(true);
+        return endUserOptional.get();
     }
 }

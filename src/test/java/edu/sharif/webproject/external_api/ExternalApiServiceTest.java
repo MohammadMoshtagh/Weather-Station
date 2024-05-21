@@ -1,6 +1,5 @@
-package edu.sharif.webproject.external.api;
+package edu.sharif.webproject.external_api;
 
-import edu.sharif.webproject.external.api.ExternalApiService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -1,5 +1,6 @@
 package edu.sharif.webproject.enduser.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,19 +9,19 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ApiTokensDto {
+public class ApiTokensResponse {
+    @JsonProperty("tokens")
     private List<ApiTokenDto> apiTokensDto;
+    @JsonProperty
     private int count;
 
-    public ApiTokensDto() {
+    public ApiTokensResponse() {
         apiTokensDto = new ArrayList<>();
         count = 0;
     }
 
-    public void setApiTokens(List<ApiTokenDto> apiTokensDto) {
+    public ApiTokensResponse(List<ApiTokenDto> apiTokensDto) {
         this.apiTokensDto = apiTokensDto;
         this.count = apiTokensDto.size();
     }
-
-
 }

@@ -2,7 +2,7 @@ package edu.sharif.webproject.enduser;
 
 import edu.sharif.webproject.enduser.api.ApiTokenDto;
 import edu.sharif.webproject.enduser.api.ApiTokenRequest;
-import edu.sharif.webproject.enduser.api.ApiTokensDto;
+import edu.sharif.webproject.enduser.api.ApiTokensResponse;
 import edu.sharif.webproject.enduser.api.DeleteApiTokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class EndUserController {
     }
 
     @GetMapping("/api-tokens")
-    public ApiTokensDto getAllApiTokens() {
+    public ApiTokensResponse getAllApiTokens() {
         return endUserService.getAllApiTokens();
     }
 
