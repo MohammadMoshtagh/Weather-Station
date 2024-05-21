@@ -2,7 +2,7 @@ package edu.sharif.webproject.country;
 
 import edu.sharif.webproject.country.dto.CountryDto;
 import edu.sharif.webproject.country.dto.CountryNameDto;
-import edu.sharif.webproject.country.dto.CountryNamesDto;
+import edu.sharif.webproject.country.dto.CountryNamesResponse;
 import edu.sharif.webproject.country.dto.CountryWeatherDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,11 +25,11 @@ public class CountryParserServiceTest {
     void testParseCountriesNames() throws IOException {
         File file = ResourceUtils.getFile("classpath:countries_names_response_body.json");
         String responseBody = new String(Files.readAllBytes(file.toPath()));
-        CountryNamesDto countryNamesDto = countryParserService.parseCountriesNames(responseBody);
-        Assertions.assertEquals(227, countryNamesDto.getCount());
+        CountryNamesResponse countryNamesResponse = countryParserService.parseCountriesNames(responseBody);
+        Assertions.assertEquals(227, countryNamesResponse.getCount());
         Assertions.assertEquals(
-                countryNamesDto.getCount(),
-                countryNamesDto.getCountries().stream().map(CountryNameDto::getName).collect(Collectors.toSet()).size());
+                countryNamesResponse.getCount(),
+                countryNamesResponse.getCountries().stream().map(CountryNameDto::getName).collect(Collectors.toSet()).size());
     }
 
     @Test

@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class CountryNamesDto {
+public class CountryNamesResponse {
 
     private final List<CountryNameDto> countries;
     private int count;
 
-    public CountryNamesDto() {
+    public CountryNamesResponse() {
         this.countries = new ArrayList<>();
     }
 

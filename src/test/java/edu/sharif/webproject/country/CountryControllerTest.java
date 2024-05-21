@@ -2,6 +2,7 @@ package edu.sharif.webproject.country;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -14,16 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockUser("admin")
 public class CountryControllerTest {
     private static CountryDto iranDto;
 
     private static CountryDto usDto;
     private static CountryWeatherDto usWeatherDto;
-    private static CountryNamesDto countryNamesDto;
+    private static CountryNamesResponse countryNamesResponse;
 
     @MockBean
     private CountryService countryService;
@@ -34,10 +37,10 @@ public class CountryControllerTest {
 
     @BeforeAll
     static void createCountryNamesMock() {
-        countryNamesDto = new CountryNamesDto();
-        countryNamesDto.addCountryName(new CountryNameDto("Iran"));
-        countryNamesDto.addCountryName(new CountryNameDto("US"));
-        countryNamesDto.addCountryName(new CountryNameDto("Germany"));
+        countryNamesResponse = new CountryNamesResponse();
+        countryNamesResponse.addCountryName(new CountryNameDto("Iran"));
+        countryNamesResponse.addCountryName(new CountryNameDto("US"));
+        countryNamesResponse.addCountryName(new CountryNameDto("Germany"));
 
         iranDto = new CountryDto(
                 "Iran",
@@ -67,7 +70,7 @@ public class CountryControllerTest {
 
     @BeforeEach
     void addCountryServiceMockFunctions() {
-        when(countryService.getAllCountriesNames()).thenReturn(countryNamesDto);
+        when(countryService.getAllCountriesNames()).thenReturn(countryNamesResponse);
         when(countryService.getCountryByName("Iran")).thenReturn(iranDto);
         when(countryService.getCountryByName("US")).thenReturn(usDto);
         when(countryService.getCountryWeatherByCountryName("US")).thenReturn(usWeatherDto);
@@ -78,9 +81,9 @@ public class CountryControllerTest {
         this.mockMvc.perform(get("/countries"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.count").value(countryNamesDto.getCountries().size()))
+                .andExpect(jsonPath("$.count").value(countryNamesResponse.getCountries().size()))
                 .andExpect(jsonPath("$.countries[*].name").value(
-                        containsInAnyOrder(countryNamesDto.getCountries()
+                        containsInAnyOrder(countryNamesResponse.getCountries()
                                 .stream().map(CountryNameDto::getName).toArray())));
 
     }

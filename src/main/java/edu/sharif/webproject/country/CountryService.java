@@ -2,7 +2,7 @@ package edu.sharif.webproject.country;
 
 import com.google.gson.JsonParseException;
 import edu.sharif.webproject.country.dto.CountryDto;
-import edu.sharif.webproject.country.dto.CountryNamesDto;
+import edu.sharif.webproject.country.dto.CountryNamesResponse;
 import edu.sharif.webproject.country.dto.CountryWeatherDto;
 import edu.sharif.webproject.external_api.ExternalApiService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class CountryService {
 
 
     @Cacheable(value = "CountriesCache")
-    public CountryNamesDto getAllCountriesNames() {
+    public CountryNamesResponse getAllCountriesNames() {
         String responseBody = externalApiService.sendRequest(countryUrl, HttpMethod.GET, null);
         return countryParserService.parseCountriesNames(responseBody);
     }

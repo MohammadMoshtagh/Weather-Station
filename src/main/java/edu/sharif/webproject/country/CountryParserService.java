@@ -14,9 +14,9 @@ public class CountryParserService {
 
     private final Gson gson;
 
-    public CountryNamesDto parseCountriesNames(String responseBody) {
+    public CountryNamesResponse parseCountriesNames(String responseBody) {
         var jsonObject = parseToJsonObject(responseBody);
-        var countryNames = new CountryNamesDto();
+        var countryNames = new CountryNamesResponse();
 
         for (var element : jsonObject.get("data").getAsJsonArray()) {
             var countryName = new CountryNameDto(element.getAsJsonObject().get("country").getAsString());

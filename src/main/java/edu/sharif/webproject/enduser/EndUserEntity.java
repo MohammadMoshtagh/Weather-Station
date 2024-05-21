@@ -25,7 +25,7 @@ public class EndUserEntity {
     @Column(nullable = false)
     private Boolean enable;
 
-    @OneToMany(mappedBy = "endUser")
+    @OneToMany(mappedBy = "endUser", cascade = CascadeType.ALL)
     @Column(name = "api_tokens")
     private List<ApiTokenEntity> apiTokens;
 

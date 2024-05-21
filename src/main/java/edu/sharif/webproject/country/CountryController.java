@@ -1,7 +1,7 @@
 package edu.sharif.webproject.country;
 
 import edu.sharif.webproject.country.dto.CountryDto;
-import edu.sharif.webproject.country.dto.CountryNamesDto;
+import edu.sharif.webproject.country.dto.CountryNamesResponse;
 import edu.sharif.webproject.country.dto.CountryWeatherDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ public class CountryController {
     private final CountryService countryService;
 
     @GetMapping("")
-    public CountryNamesDto getCountries() {
+    public CountryNamesResponse getCountries() {
         return countryService.getAllCountriesNames();
     }
 

@@ -2,9 +2,8 @@ package edu.sharif.webproject.country;
 
 import edu.sharif.webproject.country.dto.CountryDto;
 import edu.sharif.webproject.country.dto.CountryNameDto;
-import edu.sharif.webproject.country.dto.CountryNamesDto;
+import edu.sharif.webproject.country.dto.CountryNamesResponse;
 import edu.sharif.webproject.country.dto.CountryWeatherDto;
-import edu.sharif.webproject.country.CountryService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +22,13 @@ public class CountryServiceTest {
 
     @Test
     void testGetAllCountriesNames() {
-        CountryNamesDto countryNamesDto = countryService.getAllCountriesNames();
+        CountryNamesResponse countryNamesResponse = countryService.getAllCountriesNames();
 
-        Assertions.assertNotNull(countryNamesDto);
-        Assertions.assertTrue(countryNamesDto.getCount() > 0);
+        Assertions.assertNotNull(countryNamesResponse);
+        Assertions.assertTrue(countryNamesResponse.getCount() > 0);
         Assertions.assertEquals(
-                countryNamesDto.getCount(),
-                countryNamesDto.getCountries().stream().map(CountryNameDto::getName).collect(Collectors.toSet()).size());
+                countryNamesResponse.getCount(),
+                countryNamesResponse.getCountries().stream().map(CountryNameDto::getName).collect(Collectors.toSet()).size());
     }
 
     @Test
