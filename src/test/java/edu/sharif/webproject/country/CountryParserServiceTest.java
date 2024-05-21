@@ -25,7 +25,7 @@ public class CountryParserServiceTest {
     void testParseCountriesNames() throws IOException {
         File file = ResourceUtils.getFile("classpath:countries_names_response_body.json");
         String responseBody = new String(Files.readAllBytes(file.toPath()));
-        CountryNamesResponse countryNamesResponse = countryParserService.parseCountriesNames(responseBody);
+        CountryNamesResponse countryNamesResponse = countryParserService.parseCountriesNames(responseBody, 0, 227);
         Assertions.assertEquals(227, countryNamesResponse.getCount());
         Assertions.assertEquals(
                 countryNamesResponse.getCount(),

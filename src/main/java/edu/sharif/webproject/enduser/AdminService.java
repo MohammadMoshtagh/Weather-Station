@@ -1,6 +1,8 @@
 package edu.sharif.webproject.enduser;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +26,11 @@ public class AdminService {
         return true;
     }
 
-    public List<EndUserDto> getAllUsers() {
-        List<EndUserEntity> endUsers = endUserRepository.findAll();
+    public EndUsersResponse getAllUsers(int pageNum, int pageSize) {
+        Page<EndUserEntity> endUsers = endUserRepository.findAll(PageRequest.of(pageNum, pageSize));
         if (endUsers.isEmpty()) {
-            return new ArrayList<EndUserDto>();
+            return new EndUsersResponse();
         }
-        return endUsers.stream().map(EndUserEntity::toDto).toList();
+        return new EndUsersResponse(endUsers.stream().map(EndUserEntity::toDto).toList());
     }
 }

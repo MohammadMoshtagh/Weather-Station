@@ -13,6 +13,6 @@ PUT localhost:8080/admin/users?username=mazzi&active=true
 Authorization: {{auth_token}}
 
 ### Get All Users
-GET localhost:8080/admin/users
+GET localhost:8080/admin/users?pageNum=1&pageSize=2
 Authorization: {{auth_token}}
 

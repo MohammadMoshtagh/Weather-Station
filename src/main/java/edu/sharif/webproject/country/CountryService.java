@@ -33,9 +33,9 @@ public class CountryService {
 
 
     @Cacheable(value = "CountriesCache")
-    public CountryNamesResponse getAllCountriesNames() {
+    public CountryNamesResponse getAllCountriesNames(int pageNum, int pageSize) {
         String responseBody = externalApiService.sendRequest(countryUrl, HttpMethod.GET, null);
-        return countryParserService.parseCountriesNames(responseBody);
+        return countryParserService.parseCountriesNames(responseBody, pageNum, pageSize);
     }
 
     @Cacheable(value = "CountryNameCache")

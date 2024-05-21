@@ -70,7 +70,7 @@ public class CountryControllerTest {
 
     @BeforeEach
     void addCountryServiceMockFunctions() {
-        when(countryService.getAllCountriesNames()).thenReturn(countryNamesResponse);
+        when(countryService.getAllCountriesNames(0, 200)).thenReturn(countryNamesResponse);
         when(countryService.getCountryByName("Iran")).thenReturn(iranDto);
         when(countryService.getCountryByName("US")).thenReturn(usDto);
         when(countryService.getCountryWeatherByCountryName("US")).thenReturn(usWeatherDto);
@@ -78,7 +78,9 @@ public class CountryControllerTest {
 
     @Test
     void testGetCountriesApi() throws Exception {
-        this.mockMvc.perform(get("/countries"))
+        this.mockMvc.perform(get("/countries")
+                        .param("pageNum", "0")
+                        .param("pageSize", "200"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.count").value(countryNamesResponse.getCountries().size()))

@@ -2,10 +2,12 @@ package edu.sharif.webproject.enduser;
 
 import edu.sharif.webproject.enduser.api.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -29,9 +31,9 @@ public class EndUserService {
         return apiToken.toDto();
     }
 
-    public ApiTokensResponse getAllApiTokens() {
+    public ApiTokensResponse getAllApiTokens(@RequestParam int pageNum, @RequestParam int pageSize) {
         EndUserEntity endUser = getEndUserEntity();
-        List<ApiTokenEntity> apiTokens = apiTokenService.getApiTokensByEndUser(endUser);
+        List<ApiTokenEntity> apiTokens = apiTokenService.getApiTokensByEndUser(endUser, pageNum, pageSize);
         List<ApiTokenDto> apiTokenDtos = apiTokens.stream().map(ApiTokenEntity::toDto)
                 .peek(apiTokenDto -> apiTokenDto.setApiToken("API ***")).toList();
         return new ApiTokensResponse(apiTokenDtos);

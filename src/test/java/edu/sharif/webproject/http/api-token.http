@@ -9,7 +9,7 @@ Content-Type: application/json
 > {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
 
 ### Get API Key
-POST localhost:8080/user/api-tokens
+POST localhost:8080/user/api-tokens?pageNum=1&pageSize=1
 Content-Type: application/json
 Authorization: {{auth_token}}
 

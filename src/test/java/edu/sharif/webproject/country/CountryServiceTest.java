@@ -22,7 +22,7 @@ public class CountryServiceTest {
 
     @Test
     void testGetAllCountriesNames() {
-        CountryNamesResponse countryNamesResponse = countryService.getAllCountriesNames();
+        CountryNamesResponse countryNamesResponse = countryService.getAllCountriesNames(0, 100);
 
         Assertions.assertNotNull(countryNamesResponse);
         Assertions.assertTrue(countryNamesResponse.getCount() > 0);

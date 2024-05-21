@@ -1,9 +1,11 @@
 package edu.sharif.webproject.country;
 
 import edu.sharif.webproject.country.dto.CountryDto;
+import edu.sharif.webproject.country.dto.CountryNameDto;
 import edu.sharif.webproject.country.dto.CountryNamesResponse;
 import edu.sharif.webproject.country.dto.CountryWeatherDto;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.query.Page;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -15,8 +17,8 @@ public class CountryController {
     private final CountryService countryService;
 
     @GetMapping("")
-    public CountryNamesResponse getCountries() {
-        return countryService.getAllCountriesNames();
+    public CountryNamesResponse getCountries(@RequestParam int pageNum, @RequestParam int pageSize) {
+        return countryService.getAllCountriesNames(pageNum, pageSize);
     }
 
     @GetMapping("/{name}")

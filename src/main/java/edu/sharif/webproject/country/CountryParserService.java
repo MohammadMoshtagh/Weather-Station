@@ -14,12 +14,16 @@ public class CountryParserService {
 
     private final Gson gson;
 
-    public CountryNamesResponse parseCountriesNames(String responseBody) {
+    public CountryNamesResponse parseCountriesNames(String responseBody, int pageNum, int pageSize) {
         var jsonObject = parseToJsonObject(responseBody);
         var countryNames = new CountryNamesResponse();
+        var countryArray = jsonObject.get("data").getAsJsonArray();
 
-        for (var element : jsonObject.get("data").getAsJsonArray()) {
-            var countryName = new CountryNameDto(element.getAsJsonObject().get("country").getAsString());
+        for (int i = 0; i < countryArray.size(); ++i) {
+            if (i < pageSize * pageNum || i >= (pageNum + 1) * pageSize) {
+                continue;
+            }
+            var countryName = new CountryNameDto(countryArray.get(i).getAsJsonObject().get("country").getAsString());
             countryNames.addCountryName(countryName);
         }
 

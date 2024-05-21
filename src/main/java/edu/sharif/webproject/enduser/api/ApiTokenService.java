@@ -3,7 +3,11 @@ package edu.sharif.webproject.enduser.api;
 import edu.sharif.webproject.enduser.EndUserEntity;
 import edu.sharif.webproject.security.exception.InvalidApiTokenException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
@@ -27,8 +31,15 @@ public class ApiTokenService {
         return apiTokenRepository.save(apiToken);
     }
 
+    public List<ApiTokenEntity> getApiTokensByEndUser(EndUserEntity endUser, int pageNum, int pageSize) {
+        Optional<List<ApiTokenEntity>> apiTokensOptional = apiTokenRepository
+                .findApiTokenEntitiesByEndUser(endUser, PageRequest.of(pageNum, pageSize));
+        return apiTokensOptional.orElseGet(ArrayList::new);
+    }
+
     public List<ApiTokenEntity> getApiTokensByEndUser(EndUserEntity endUser) {
-        Optional<List<ApiTokenEntity>> apiTokensOptional = apiTokenRepository.findApiTokenEntitiesByEndUser(endUser);
+        Optional<List<ApiTokenEntity>> apiTokensOptional = apiTokenRepository
+                .findApiTokenEntitiesByEndUser(endUser);
         return apiTokensOptional.orElseGet(ArrayList::new);
     }
 

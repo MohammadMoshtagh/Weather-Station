@@ -18,7 +18,7 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public List<EndUserDto> getAllUsers() {
-        return adminService.getAllUsers();
+    public EndUsersResponse getAllUsers(@RequestParam int pageNum, @RequestParam int pageSize) {
+        return adminService.getAllUsers(pageNum, pageSize);
     }
 }
