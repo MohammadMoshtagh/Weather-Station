@@ -2,27 +2,28 @@ package edu.sharif.webproject.config;
 
 import edu.sharif.webproject.security.exception.InvalidApiTokenException;
 import edu.sharif.webproject.security.exception.UsernameAlreadyInUseException;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "Username not found!")  // 403
     @ExceptionHandler(UsernameNotFoundException.class)
-    public void handleUsernameNotFoundException() {
+    public ResponseEntity<ErrorResponse> handleUsernameNotFoundException(UsernameNotFoundException exception) {
+        return ResponseEntity.notFound().build();
     }
 
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Username already in use!")  // 400
     @ExceptionHandler(UsernameAlreadyInUseException.class)
-    public void handleUsernameAlreadyInUseException() {
+    public ResponseEntity<String> handleUsernameAlreadyInUseException(UsernameAlreadyInUseException exception) {
+        return ResponseEntity.badRequest().body(exception.getMessage());
     }
 
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "API token not found!")  // 400
     @ExceptionHandler(InvalidApiTokenException.class)
-    public void handleInvalidApiKeyRequestException() {
+    public ResponseEntity<String> handleInvalidApiKeyRequestException(InvalidApiTokenException exception) {
+        return ResponseEntity.badRequest().body(exception.getMessage());
     }
 }
