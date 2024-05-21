@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import edu.sharif.webproject.config.security.AdminProperties;
 import edu.sharif.webproject.enduser.EndUserRepository;
 import edu.sharif.webproject.security.UsersAuthManagementService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,16 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
+@RequiredArgsConstructor
 public class ApplicationConfig {
 
     private final EndUserRepository endUserRepository;
     private final AdminProperties adminProperties;
 
-    @Autowired
-    public ApplicationConfig(EndUserRepository endUserRepository, AdminProperties adminProperties) {
-        this.endUserRepository = endUserRepository;
-        this.adminProperties = adminProperties;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

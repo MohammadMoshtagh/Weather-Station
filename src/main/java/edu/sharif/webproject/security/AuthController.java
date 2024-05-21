@@ -1,6 +1,6 @@
 package edu.sharif.webproject.security;
 
-import edu.sharif.webproject.security.exception.InvalidApiKeyRequest;
+import edu.sharif.webproject.enduser.EndUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +17,8 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserCredential userCredential) throws InvalidApiKeyRequest {
-        String token = authService.register(userCredential);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization")
-                .build();
+    public EndUserDto register(@RequestBody UserCredential userCredential) {
+        return authService.register(userCredential);
     }
 
     @PostMapping("/login")

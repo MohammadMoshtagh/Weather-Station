@@ -5,18 +5,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import edu.sharif.webproject.country.dto.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CountryParserService {
 
     private final Gson gson;
-
-    @Autowired
-    public CountryParserService(Gson gson) {
-        this.gson = gson;
-    }
 
     public CountryNamesDto parseCountriesNames(String responseBody) {
         var jsonObject = parseToJsonObject(responseBody);

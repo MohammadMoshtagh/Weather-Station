@@ -1,6 +1,6 @@
 package edu.sharif.webproject.external_api;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -13,14 +13,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
+@RequiredArgsConstructor
 public class ExternalApiService {
 
     private final RestTemplate restTemplate;
-
-    @Autowired
-    public ExternalApiService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
 
     @Retryable(retryFor = Exception.class,
             backoff = @Backoff(delayExpression = "${rest-template-retry.max-delay}"),

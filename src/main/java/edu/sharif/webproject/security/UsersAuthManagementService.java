@@ -2,7 +2,7 @@ package edu.sharif.webproject.security;
 
 import edu.sharif.webproject.enduser.EndUserEntity;
 import edu.sharif.webproject.enduser.EndUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,17 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UsersAuthManagementService implements UserDetailsService {
 
     private final EndUserRepository endUserRepository;
     private final PasswordEncoder passwordEncoder;
 
-
-    @Autowired
-    public UsersAuthManagementService(EndUserRepository endUserRepository, PasswordEncoder passwordEncoder) {
-        this.endUserRepository = endUserRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -1,19 +1,14 @@
 package edu.sharif.webproject.security;
 
-import edu.sharif.webproject.enduser.EndUserEntity;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +17,8 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     private static final String SECRET_KEY = "33743677397A24432646294A404D635166546A576E5A7234753778214125442A";
+    @Value("${spring.security.jwt.expiration-interval}")
+    private int tokenExpirationInterval;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -42,7 +39,7 @@ public class JwtService {
                 .claims(extraClaims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) // how long valid
+                .expiration(new Date(System.currentTimeMillis() + 60000L * tokenExpirationInterval)) // how long valid
                 .signWith(getSignInKey())
                 .compact();
     }

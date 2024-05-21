@@ -5,7 +5,7 @@ import edu.sharif.webproject.country.dto.CountryDto;
 import edu.sharif.webproject.country.dto.CountryNamesDto;
 import edu.sharif.webproject.country.dto.CountryWeatherDto;
 import edu.sharif.webproject.external_api.ExternalApiService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.*;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
+@RequiredArgsConstructor
 public class CountryService {
 
     private final ExternalApiService externalApiService;
@@ -30,11 +31,6 @@ public class CountryService {
     @Value("${country.weather.url}")
     private String countryWeatherUrl;
 
-    @Autowired
-    public CountryService(ExternalApiService externalApiService, CountryParserService countryParserService) {
-        this.externalApiService = externalApiService;
-        this.countryParserService = countryParserService;
-    }
 
     @Cacheable(value = "CountriesCache")
     public CountryNamesDto getAllCountriesNames() {
