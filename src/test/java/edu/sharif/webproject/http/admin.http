@@ -16,3 +16,6 @@ Authorization: {{auth_token}}
 GET localhost:8080/admin/users?pageNum=1&pageSize=2
 Authorization: {{auth_token}}
 
+### test queue
+GET localhost:8080/countries/iran
+Authorization: {{auth_token}}
