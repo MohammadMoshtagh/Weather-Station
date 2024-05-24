@@ -6,7 +6,6 @@ import edu.sharif.webproject.country.entity.dto.CountryNamesResponse;
 import edu.sharif.webproject.country.entity.dto.CountryWeatherDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -16,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class CountryController {
 
     private final CountryService countryService;
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
 
     @GetMapping("")
     public CountryNamesResponse getCountries(@RequestParam int pageNum, @RequestParam int pageSize) {

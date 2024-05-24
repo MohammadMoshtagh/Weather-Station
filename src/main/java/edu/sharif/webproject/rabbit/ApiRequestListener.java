@@ -3,15 +3,15 @@ package edu.sharif.webproject.rabbit;
 import edu.sharif.webproject.config.RabbitMQConfig;
 import edu.sharif.webproject.country.CountryService;
 import edu.sharif.webproject.country.entity.dto.CountryDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ApiRequestListener {
 
-    @Autowired
-    private CountryService countryService;
+    private final CountryService countryService;
 
     @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
     public CountryDto handleApiRequest(String name) {
