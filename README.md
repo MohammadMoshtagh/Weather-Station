@@ -11,6 +11,8 @@ docker run --name postgres_container -e POSTGRES_PASSWORD=mysecretpassword -d -p
 ```
 
 ### RabbitMQ
+Also if you want use rabbit as a queue for calling external apis, you should setup a rabbit server. you can do it by run this command:
+```bash
 
-
+```
 
