@@ -23,9 +23,9 @@ GET localhost:8080/countries/iran
 X-API-Key: 88327df6-55c4-47a3-a533-1ddcbfef6c51
 
 ### Get all API Keys
-GET localhost:8080/user/api-tokens
+GET localhost:8080/user/api-tokens?pageNum=0&pageSize=10
 Authorization: {{auth_token}}
 
 ### Delete API Key
 DELETE localhost:8080/user/api-tokens
-X-API-Key: 0c6146c2-f0df-4b5c-b840-55670c2831d7
+X-API-Key: 88327df6-55c4-47a3-a533-1ddcbfef6c51

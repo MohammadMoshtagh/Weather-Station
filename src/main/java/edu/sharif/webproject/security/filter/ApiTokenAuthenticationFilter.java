@@ -2,6 +2,7 @@ package edu.sharif.webproject.security.filter;
 
 import edu.sharif.webproject.api.entity.ApiTokenEntity;
 import edu.sharif.webproject.api.ApiTokenService;
+import edu.sharif.webproject.security.exception.InvalidApiTokenException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,7 +36,13 @@ public class ApiTokenAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        ApiTokenEntity apiToken = apiTokenService.getApiTokenEntityByApiToken(requestApiToken);
+        ApiTokenEntity apiToken;
+        try {
+            apiToken = apiTokenService.getApiTokenEntityByApiToken(requestApiToken);
+        } catch (InvalidApiTokenException ex) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         Date expirationDate = apiToken.getExpirationDate();
         String username = apiToken.getEndUser().getUsername();
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
