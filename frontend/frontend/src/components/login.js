@@ -12,14 +12,15 @@ const Login = (props) => {
     try {
         const response = await login({ username, password });
         console.log(response)
-        if (response.data.token) {
-          localStorage.setItem('authToken', response.data.token);
-          //navigate('/admin');
-        } else {
-          alert('Invalid credentials');
+        if (response.status == 200){
+          localStorage.setItem('authToken', response.headers.authorization);
+          navigate('/');
         }
+        
       } catch (error) {
-        console.error('Error logging in:', error);
+        if (error.response.status == 401){
+          window.alert('401');
+        }
       }
   }
 

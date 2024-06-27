@@ -34,3 +34,5 @@ build/
 
 ### Security ###
 /src/main/resources/application-dev.properties
+
+/frontend/node_modules

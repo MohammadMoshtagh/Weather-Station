@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import register from '../services/api'
 
 const Register = (props) => {
   const [username, setUsername] = useState('')
@@ -7,8 +8,19 @@ const Register = (props) => {
 
   const navigate = useNavigate()
 
-  const onButtonClick = () => {
-    // You'll update this function later...
+  const onButtonClick = async () => {
+    try {
+      const response = await register ({ username, password });
+      console.log(response)
+    //   if (response.data.token) {
+    //     // localStorage.setItem('authToken', response.data.token);
+    //     //navigate('/login');
+    //   } else {
+    //     alert('Invalid credentials');
+    //   }
+    } catch (error) {
+      console.error('Error register in:', error);
+    }
   }
 
   return (
