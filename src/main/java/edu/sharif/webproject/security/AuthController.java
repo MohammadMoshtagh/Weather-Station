@@ -21,12 +21,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserCredential userCredential) {
-        String token = authService.login(userCredential);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
-                .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization")
-                .build();
+    public ResponseEntity<EndUserDto> login(@RequestBody UserCredential userCredential) {
+        return authService.login(userCredential);
     }
 
 }

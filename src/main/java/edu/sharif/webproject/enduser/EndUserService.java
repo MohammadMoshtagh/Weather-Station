@@ -58,7 +58,7 @@ public class EndUserService {
         return new DeleteApiTokenResponse(true);
     }
 
-    private EndUserEntity getEndUserEntity() {
+    public EndUserEntity getEndUserEntity() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<EndUserEntity> endUserOptional = userRepository.findEndUserEntityByUsername(username);
@@ -66,5 +66,14 @@ public class EndUserService {
             throw new UsernameNotFoundException("Username not found!");
         }
         return endUserOptional.get();
+    }
+
+    public EndUserEntity saveEndUserEntity(EndUserEntity endUser) {
+        return userRepository.save(endUser);
+    }
+
+    public boolean checkDuplicateUsername(String username) {
+        Optional<EndUserEntity> endUserOptional = userRepository.findEndUserEntityByUsername(username);
+        return endUserOptional.isPresent();
     }
 }

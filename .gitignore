@@ -35,4 +35,6 @@ build/
 ### Security ###
 /src/main/resources/application-dev.properties
 
+### Data ###
+postgres_data/
 /frontend/node_modules

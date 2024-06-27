@@ -2,12 +2,11 @@
 
 ## Requirements
 
-### postgres
+### PostgreSQL
 
 For running the project you should have a postgres database with `web_project` db. you can setup a postgres using following command:
 ```bash
-
-docker run --name postgres_container -e POSTGRES_PASSWORD=mysecretpassword -d -p 5432:5432 -v postgres_data:/var/lib/postgresql/data postgres
+docker run --name postgres -e POSTGRES_USER=user -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=web_project -d -p 5432:5432 -v ./postgres_data:/var/lib/postgresql/data postgres
 ```
 
 ### RabbitMQ
