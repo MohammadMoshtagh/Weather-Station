@@ -41,8 +41,7 @@ public class EndUserService {
     public ApiTokensResponse getAllApiTokens(@RequestParam int pageNum, @RequestParam int pageSize) {
         EndUserEntity endUser = getEndUserEntity();
         List<ApiTokenEntity> apiTokens = apiTokenService.getApiTokensByEndUser(endUser, pageNum, pageSize);
-        List<ApiTokenDto> apiTokenDtos = apiTokens.stream().map(ApiTokenEntity::toDto)
-                .peek(apiTokenDto -> apiTokenDto.setApiToken("API ***")).toList();
+        List<ApiTokenDto> apiTokenDtos = apiTokens.stream().map(ApiTokenEntity::toDto).toList();
         return new ApiTokensResponse(apiTokenDtos);
     }
 

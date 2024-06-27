@@ -11,7 +11,7 @@ const Home = (props) => {
         localStorage.removeItem('user')
         props.setLoggedIn(false)
       } else {
-        navigate('/login')
+        navigate('/')
       }
   }
 

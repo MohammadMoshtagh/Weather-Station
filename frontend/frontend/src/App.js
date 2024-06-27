@@ -35,7 +35,6 @@ function App() {
 
           {/* ProtectedRoutes */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/login" element={<Navigate to="/" />} />
             <Route path="/register" element={<Navigate to="/" />} />
             <Route
               path="/"
