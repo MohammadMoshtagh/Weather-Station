@@ -15,17 +15,11 @@ import java.util.TimeZone;
 public class WebProjectApplication {
 
 	@Value("${application.timezone:UTC}")
-	private String applicationTimeZone;
+	private static String applicationTimeZone = "UTC";
 
 	public static void main(String[] args) {
+		TimeZone.setDefault(TimeZone.getTimeZone(applicationTimeZone));
 		SpringApplication.run(WebProjectApplication.class, args);
 	}
 
-	/**
-	 * Initializes some configs for spring boot application.
-	 */
-	@PostConstruct
-	public void init() {
-		TimeZone.setDefault(TimeZone.getTimeZone(applicationTimeZone));
-	}
 }
