@@ -38,9 +38,7 @@ export default function Login() {
         }
       })
       .catch((error) => {
-        if (error.status && error.status >= 400 && error.status < 500) {
           alert("Invalid username or password.");
-        }
       });
   }
 
