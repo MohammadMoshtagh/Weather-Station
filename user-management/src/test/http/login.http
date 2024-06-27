@@ -11,3 +11,10 @@ Content-Type: application/json
 ###
 GET localhost:8080/admin/users?pageNum=0&pageSize=2
 Authorization: {{auth_token}}
+
+### HTTP Status = 401
+GET localhost:8080/users/auth-check
+
+### HTTP Status = 200
+GET localhost:8080/users/auth-check
+Authorization: {{auth_token}}

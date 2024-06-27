@@ -24,4 +24,9 @@ public class AuthController {
         return authService.login(userCredential);
     }
 
+    @GetMapping("/auth-check")
+    public ResponseEntity<?> authCheck() {
+        return authService.authCheck();
+    }
+
 }

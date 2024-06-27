@@ -9,7 +9,9 @@ import edu.sharif.webproject.security.entity.dto.UserCredential;
 import edu.sharif.webproject.security.exception.UsernameAlreadyInUseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -48,6 +50,14 @@ public class AuthService {
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "Authorization")
                 .body(endUserDto);
+    }
+
+    public ResponseEntity<?> authCheck() {
+        if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } else {
+            return ResponseEntity.ok().build();
+        }
     }
 
     private EndUserEntity buildEndUserEntity(UserCredential userCredential) {
