@@ -12,11 +12,11 @@ import UserDetails from "./components/userDetails";
 import AdminHome from "./components/adminHome";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useUserRole } from "./hooks/useUserRole";
+import { useIsLoggedIn } from "./hooks/useIsLoggedIn";
 
 function App() {
-  const isLoggedIn = window.localStorage.getItem("loggedIn");
+  const isLoggedIn = useIsLoggedIn();
   const userRole = useUserRole();
-  const userType = window.localStorage.getItem("userRole");
   const isAdmin = userRole === "ADMIN";
 
   useEffect(() => {}, []);
