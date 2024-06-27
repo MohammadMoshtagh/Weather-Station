@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import register from '../services/api'
+import { register } from '../services/api'
 
-const Register = (props) => {
+const Login = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -10,17 +10,18 @@ const Register = (props) => {
 
   const onButtonClick = async () => {
     try {
-      const response = await register ({ username, password });
-      console.log(response)
-    //   if (response.data.token) {
-    //     // localStorage.setItem('authToken', response.data.token);
-    //     //navigate('/login');
-    //   } else {
-    //     alert('Invalid credentials');
-    //   }
-    } catch (error) {
-      console.error('Error register in:', error);
-    }
+        const response = await register({ username, password });
+        console.log(response)
+        if (response.status == 200){
+          navigate('/login');
+          window.alert('register is ok');
+        }
+        
+      } catch (error) {
+        if (error.response.status == 401){
+          window.alert('401');
+        }
+      }
   }
 
   return (
@@ -54,4 +55,4 @@ const Register = (props) => {
   )
 }
 
-export default Register
+export default Login
