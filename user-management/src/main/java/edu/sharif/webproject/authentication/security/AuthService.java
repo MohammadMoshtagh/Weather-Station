@@ -1,12 +1,13 @@
-package edu.sharif.webproject.security;
+package edu.sharif.webproject.authentication.security;
 
-import static edu.sharif.webproject.enduser.entity.EndUserRoleEnum.USER;
+import static edu.sharif.webproject.authentication.enduser.entity.EndUserRoleEnum.USER;
 
-import edu.sharif.webproject.enduser.EndUserService;
-import edu.sharif.webproject.enduser.entity.dto.EndUserDto;
-import edu.sharif.webproject.enduser.entity.EndUserEntity;
-import edu.sharif.webproject.security.entity.dto.UserCredential;
-import edu.sharif.webproject.security.exception.UsernameAlreadyInUseException;
+import edu.sharif.webproject.authentication.enduser.EndUserService;
+import edu.sharif.webproject.authentication.enduser.entity.dto.EndUserDto;
+import edu.sharif.webproject.authentication.enduser.entity.EndUserEntity;
+import edu.sharif.webproject.authentication.enduser.entity.dto.ExternalUserDto;
+import edu.sharif.webproject.authentication.security.entity.dto.UserCredential;
+import edu.sharif.webproject.authentication.security.exception.UsernameAlreadyInUseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 @Service
 @RequiredArgsConstructor
@@ -52,11 +56,14 @@ public class AuthService {
                 .body(endUserDto);
     }
 
-    public ResponseEntity<?> authCheck() {
-        if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    public ResponseEntity<ExternalUserDto> authCheck() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            return ResponseEntity.ok().body(null);
         } else {
-            return ResponseEntity.ok().build();
+            User authenticatedUser = (User) authentication.getPrincipal();
+            ExternalUserDto externalUserDto = new ExternalUserDto(authenticatedUser.getUsername());
+            return ResponseEntity.ok().body(externalUserDto);
         }
     }
 

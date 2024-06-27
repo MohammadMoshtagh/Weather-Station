@@ -34,7 +34,7 @@ public class CountryService {
 
     @Cacheable(value = "CountriesCache")
     public CountryNamesResponse getAllCountriesNames(int pageNum, int pageSize) {
-        String responseBody = externalApiService.sendRequest(countryUrl, HttpMethod.GET, null);
+        String responseBody = externalApiService.sendRequest(countryUrl, HttpMethod.GET, null, String.class).getBody();
         return countryParserService.parseCountriesNames(responseBody, pageNum, pageSize);
     }
 
@@ -43,7 +43,7 @@ public class CountryService {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Api-Key", ninjasApiKey);
 
-        String responseBody = externalApiService.sendRequest(resourceUrl, HttpMethod.GET, headers);
+        String responseBody = externalApiService.sendRequest(resourceUrl, HttpMethod.GET, headers, String.class).getBody();
         try {
             return countryParserService.parseCountry(responseBody);
         } catch (JsonParseException ex) {
@@ -63,7 +63,7 @@ public class CountryService {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Api-Key", ninjasApiKey);
 
-        String responseBody = externalApiService.sendRequest(resourceUrl, HttpMethod.GET, headers);
+        String responseBody = externalApiService.sendRequest(resourceUrl, HttpMethod.GET, headers, String.class).getBody();
         return countryParserService.parseCityWeather(responseBody, country.getName(), country.getCapital());
     }
 }
