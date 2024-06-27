@@ -11,6 +11,6 @@ import java.util.Date;
 public class EndUserDto {
     private String username;
     private EndUserRoleEnum role;
-    private Boolean enable;
+    private String enable;
     private Date createDate;
 }

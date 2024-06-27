@@ -34,6 +34,6 @@ public class EndUserEntity {
     private List<ApiTokenEntity> apiTokens;
 
     public EndUserDto toDto() {
-        return new EndUserDto(username, role, enable, createDate);
+        return new EndUserDto(username, role, enable.toString(), createDate);
     }
 }
