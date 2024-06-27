@@ -1,0 +1,20 @@
+### Login
+POST localhost:8081/users/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+> {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
+
+### Test (should be failed)
+GET localhost:8081/countries/iran
+
+### Test (should be successful)
+GET localhost:8081/countries/iran
+Authorization: {{auth_token}}
+
+###
+GET localhost:8081/admin/users
+Authorization: {{auth_token}}

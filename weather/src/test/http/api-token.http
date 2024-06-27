@@ -1,0 +1,31 @@
+### Login
+POST localhost:8081/users/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+> {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
+
+### Get API Key
+POST localhost:8081/user/api-tokens?pageNum=1&pageSize=1
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+{
+  "name": "mahdi",
+  "expire_date": "2025-01-01T23:59:59Z"
+}
+
+### Request Using API Key
+GET localhost:8081/countries/iran
+X-API-Key: 88327df6-55c4-47a3-a533-1ddcbfef6c51
+
+### Get all API Keys
+GET localhost:8081/user/api-tokens?pageNum=0&pageSize=10
+Authorization: {{auth_token}}
+
+### Delete API Key
+DELETE localhost:8081/user/api-tokens
+X-API-Key: 88327df6-55c4-47a3-a533-1ddcbfef6c51
