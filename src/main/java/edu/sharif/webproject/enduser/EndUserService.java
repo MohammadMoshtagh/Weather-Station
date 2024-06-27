@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -68,7 +69,18 @@ public class EndUserService {
         return endUserOptional.get();
     }
 
+    public EndUserEntity getEndUserEntity(String username) {
+        Optional<EndUserEntity> endUserOptional = userRepository.findEndUserEntityByUsername(username);
+        if (endUserOptional.isPresent()) {
+            return endUserOptional.get();
+        } else {
+            throw new UsernameNotFoundException("Could not find user with username " + username);
+        }
+    }
+
     public EndUserEntity saveEndUserEntity(EndUserEntity endUser) {
+        Date currentDate = new Date();
+        endUser.setCreateDate(currentDate);
         return userRepository.save(endUser);
     }
 

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,12 +26,14 @@ public class EndUserEntity {
     private EndUserRoleEnum role;
     @Column(nullable = false)
     private Boolean enable;
+    @Column(nullable = false, name = "create_date")
+    private Date createDate;
 
     @OneToMany(mappedBy = "endUser", cascade = CascadeType.ALL)
     @Column(name = "api_tokens")
     private List<ApiTokenEntity> apiTokens;
 
     public EndUserDto toDto() {
-        return new EndUserDto(username, role, enable);
+        return new EndUserDto(username, role, enable, createDate);
     }
 }

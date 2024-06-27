@@ -2,7 +2,7 @@ package edu.sharif.webproject.config;
 
 import com.google.gson.Gson;
 import edu.sharif.webproject.config.security.AdminProperties;
-import edu.sharif.webproject.enduser.entity.EndUserRepository;
+import edu.sharif.webproject.enduser.EndUserService;
 import edu.sharif.webproject.security.UsersAuthManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
@@ -20,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final EndUserRepository endUserRepository;
+    private final EndUserService endUserService;
     private final AdminProperties adminProperties;
 
 
@@ -32,7 +33,7 @@ public class ApplicationConfig {
     @Bean
     public AuthenticationProvider authenticationProvider(PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService(endUserRepository, passwordEncoder));
+        authProvider.setUserDetailsService(userDetailsService(endUserService, passwordEncoder));
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
@@ -44,9 +45,9 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(EndUserRepository endUserRepository, PasswordEncoder passwordEncoder) {
-        UsersAuthManagementService userDetailsService = new UsersAuthManagementService(endUserRepository, passwordEncoder);
-        if (endUserRepository.findEndUserEntityByUsername(adminProperties.getUsername()).isEmpty()) {
+    public UserDetailsService userDetailsService(EndUserService endUserService, PasswordEncoder passwordEncoder) {
+        UsersAuthManagementService userDetailsService = new UsersAuthManagementService(endUserService, passwordEncoder);
+        if (!endUserService.checkDuplicateUsername(adminProperties.getUsername())) {
             userDetailsService.save(adminProperties.getEndUser());
         }
         return userDetailsService;
