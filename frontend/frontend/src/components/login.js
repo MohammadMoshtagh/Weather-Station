@@ -1,58 +1,97 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { login } from '../services/api'
+import React, { Component, useState } from "react";
+import "../index.css";
+import { useNavigate } from "react-router-dom";
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const Login = (props) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  function handleSubmit(e) {
+    e.preventDefault();
+    const requestBody = JSON.stringify({
+      username: email,
+      password,
+    });
+    fetch("http://localhost:8080/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: requestBody,
+    })
+      .then((res) => {
+        window.localStorage.setItem("Token", res.headers.get("Authorization"));
+        const jsonResponse = res.json();
+        return jsonResponse;
+      })
+      .then((data) => {
+        window.localStorage.setItem("userRole", data.role);
+        window.localStorage.setItem("username", data.username);
+        window.localStorage.setItem("loggedIn", true);
 
-  const onButtonClick = async () => {
-    try {
-        const response = await login({ username, password });
-        console.log(response)
-        if (response.status == 200){
-          localStorage.setItem('authToken', response.headers.authorization);
-          navigate('/');
+        if (data.role == "ADMIN") {
+          navigate("/admin-dashboard");
+        } else {
+          navigate("/user-details");
         }
-        
-      } catch (error) {
-        if (error.response.status == 401){
-          window.alert('401');
+      })
+      .catch((error) => {
+        if (error.status && error.status >= 400 && error.status < 500) {
+          alert("Invalid username or password.");
         }
-      }
+      });
   }
 
   return (
-    <div className={'mainContainer'}>
-      <div className={'titleContainer'}>
-        <div>Login</div>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={username}
-          placeholder="Enter your username here"
-          onChange={(ev) => setUsername(ev.target.value)}
-          className={'inputBox'}
-        />
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={password}
-          placeholder="Enter your password here"
-          onChange={(ev) => setPassword(ev.target.value)}
-          className={'inputBox'}
-        />
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input className={'inputButton'} type="button" onClick={onButtonClick} value={'Log in'} />
+    <div className="auth-wrapper">
+      <div className="auth-inner">
+        <form onSubmit={handleSubmit}>
+          <h3>Login</h3>
+
+          <div className="mb-3">
+            <label>Username</label>
+            <input
+              className="form-control"
+              placeholder="Enter username"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label>Password</label>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <div className="custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="customCheck1"
+              />
+              <label className="custom-control-label" htmlFor="customCheck1">
+                Remember me
+              </label>
+            </div>
+          </div>
+
+          <div className="d-grid">
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </div>
+          <p className="forgot-password text-right">
+            <a href="/register">Register</a>
+          </p>
+        </form>
       </div>
     </div>
-  )
+  );
 }
-
-export default Login
