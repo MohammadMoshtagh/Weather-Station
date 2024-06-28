@@ -12,7 +12,7 @@ Content-Type: application/json
 GET localhost:8080/countries/iran
 
 ### Test (should be successful)
-GET localhost:8080/countries/iran
+GET localhost:8080/countries/iran/weather
 Authorization: {{auth_token}}
 
 ###

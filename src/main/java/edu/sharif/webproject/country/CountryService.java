@@ -38,7 +38,6 @@ public class CountryService {
         return countryParserService.parseCountriesNames(responseBody, pageNum, pageSize);
     }
 
-    @Cacheable(value = "CountryNameCache")
     public CountryDto getCountryByName(String countryName) {
         String resourceUrl = countryDetailsUrl + countryName;
         HttpHeaders headers = new HttpHeaders();
@@ -48,8 +47,13 @@ public class CountryService {
         try {
             return countryParserService.parseCountry(responseBody);
         } catch (JsonParseException ex) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Country not found!");
+            return null;
         }
+    }
+
+    @Cacheable(value = "CountryNameCache")
+    public CountryDto getCountry(String countryName) {
+        return getCountryByName(countryName);
     }
 
     @Cacheable(value = "WeatherCache")

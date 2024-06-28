@@ -6,7 +6,10 @@ import edu.sharif.webproject.country.entity.dto.CountryNamesResponse;
 import edu.sharif.webproject.country.entity.dto.CountryWeatherDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
@@ -24,7 +27,12 @@ public class CountryController {
 
     @GetMapping("/{name}")
     public CountryDto getCountry(@PathVariable String name) {
-        return (CountryDto) rabbitTemplate.convertSendAndReceive(RabbitMQConfig.QUEUE_NAME, name);
+        CountryDto countryDto = (CountryDto) rabbitTemplate.convertSendAndReceive(RabbitMQConfig.QUEUE_NAME, name);
+        if (countryDto != null) {
+            return countryDto;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Country not found!");
+        }
     }
 
     @GetMapping("/{name}/weather")

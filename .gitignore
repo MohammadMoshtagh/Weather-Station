@@ -38,3 +38,7 @@ build/
 ### Data ###
 postgres_data/
 /frontend/node_modules
+
+### Python ###
+venv/
+__pycache__/
