@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  weather:
+    build:
+      context: .
+      dockerfile: ./weather/Dockerfile
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  user-management:
+    build:
+      context: .
+      dockerfile: ./user-management/Dockerfile
+    ports:
+      - "8082:8080"
+    depends_on:
+      - postgres
+      - rabbitmq
+
+  postgres:
+    image: registry.docker.ir/postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: registry.docker.ir/rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+volumes:
+  postgres-data:
