@@ -1,9 +1,12 @@
 import React, { Component, useState } from "react";
 import "../index.css";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
 
@@ -15,10 +18,11 @@ export default function SignUp() {
           password
         }),
       })
-        .then((res) => res.json())
-        .then((data) => {
+        .then((res) => {
           alert("Registration Successful. contact with admin for activation.");
-        }).catch((error) => {
+          navigate("/")
+        })
+        .catch((error) => {
           alert("Try with another username");
         });;
 

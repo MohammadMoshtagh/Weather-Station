@@ -3,10 +3,13 @@ import { faTrash} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
+import FormComponent from './apiTokenForm';
+
 export default function AdminHome({}) {
   //setting state
   const [data, setData] = useState([]);
   const [searchQuery,setSearchQuery]=useState("")
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,13 +24,20 @@ export default function AdminHome({}) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.tokens)
         setData(data.tokens);
       }).catch((error) => {
         console.log(error)
       });;
   };
 
+  const handleButtonClick = () => {
+    setIsFormOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+  };
+  
   //logout
   const logOut = () => {
     window.localStorage.clear();
@@ -59,6 +69,26 @@ export default function AdminHome({}) {
     }
   };
 
+  const createApiToken = (formData) => {
+    var expire_date = formData.expire_date += "T23:59:59Z";
+    var name = formData.name;
+    fetch('http://localhost:8080/user/api-tokens', {
+      method: "POST",
+      headers: {'Authorization': window.localStorage.getItem("Token"), 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        name,
+        expire_date
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        window.alert('API token created!')
+        getAllApiTokens();
+      }).catch((error) => {
+        console.log(error)
+      });;
+  };
+
 
   return (
     <div className="auth-wrapper" style={{ height: "auto", marginTop: 50 }}>
@@ -69,6 +99,12 @@ export default function AdminHome({}) {
             style={{ position: "absolute", right: 10, top: 8, color: "#aaa" }}
           >
           </span>
+        </div>
+        <div>
+          <button onClick={handleButtonClick}>create new API token</button>
+          {isFormOpen && (
+            <FormComponent onClose={handleCloseForm} onSubmit={createApiToken} />
+          )}
         </div>
         <table style={{ width: 700 }}>
           <tr style={{ textAlign: "center" }}>
