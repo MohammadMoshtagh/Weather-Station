@@ -1,15 +1,15 @@
 ### Login
-POST localhost:8081/users/login
+POST localhost:8000/users/login
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "password": "admin"
+  "username": "hasti",
+  "password": "asdf"
 }
 > {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
 
 ### Get API Key
-POST localhost:8081/user/api-tokens?pageNum=1&pageSize=1
+POST localhost:8000/user/api-tokens?pageNum=1&pageSize=1
 Content-Type: application/json
 Authorization: {{auth_token}}
 
@@ -19,13 +19,13 @@ Authorization: {{auth_token}}
 }
 
 ### Request Using API Key
-GET localhost:8081/countries/iran
+GET localhost:8000/countries/iran
 X-API-Key: 88327df6-55c4-47a3-a533-1ddcbfef6c51
 
 ### Get all API Keys
-GET localhost:8081/user/api-tokens?pageNum=0&pageSize=10
+GET localhost:8000/user/api-tokens?pageNum=0&pageSize=10
 Authorization: {{auth_token}}
 
 ### Delete API Key
-DELETE localhost:8081/user/api-tokens
+DELETE localhost:8000/user/api-tokens
 X-API-Key: 88327df6-55c4-47a3-a533-1ddcbfef6c51

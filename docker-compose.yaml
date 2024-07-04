@@ -17,17 +17,18 @@ services:
       - rabbitmq
 
   postgres:
-    image: registry.docker.ir/postgres:13
+    image: postgres:latest
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: authentication
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
   rabbitmq:
-    image: registry.docker.ir/rabbitmq:3-management
+    image: rabbitmq:3.13-management
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -35,6 +36,9 @@ services:
     image: nginx:latest
     ports:
       - "8000:80"
+    depends_on:
+      - user-management
+      - weather
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
 
