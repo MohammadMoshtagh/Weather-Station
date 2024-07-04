@@ -2,9 +2,11 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY . .
-RUN ./user-management/mvnw dependency:resolve
+COPY ./user-management .
+COPY ./.mvn ./.mvn
 
-RUN ./user-management/mvnw package
+RUN ./mvnw dependency:resolve
+
+RUN ./mvnw package
 
 ENTRYPOINT ["java", "-jar", "user-management/target/user-management-0.0.1-SNAPSHOT.jar"]

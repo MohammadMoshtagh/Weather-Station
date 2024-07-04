@@ -1,5 +1,12 @@
 version: '3.8'
 services:
+  frontend:
+    image: frontend:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - nginx
+
   weather:
     image: weather:latest
     ports:
