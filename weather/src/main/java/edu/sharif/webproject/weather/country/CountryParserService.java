@@ -1,5 +1,8 @@
 package edu.sharif.webproject.weather.country;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -8,11 +11,14 @@ import edu.sharif.webproject.weather.country.entity.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CountryParserService {
 
     private final Gson gson;
+    private final ObjectMapper jacksonObjectMapper;
 
     public CountryNamesResponse parseCountriesNames(String responseBody, int pageNum, int pageSize) {
         var jsonObject = parseToJsonObject(responseBody);
@@ -58,6 +64,15 @@ public class CountryParserService {
         var humidity = jsonObject.get("humidity").getAsFloat();
 
         return new CountryWeatherDto(countryName, capital, windSpeed, windDegrees, temp, humidity);
+    }
+
+    public List<LocationDto> parseCityLocation(String responseBody) {
+        try {
+            return jacksonObjectMapper.readValue(responseBody, new TypeReference<List<LocationDto>>(){});
+        } catch (JsonProcessingException jpe) {
+            jpe.printStackTrace();
+            throw new JsonParseException("Cannot parse city location!");
+        }
     }
 
     private JsonObject parseToJsonObject(String responseBody) {

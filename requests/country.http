@@ -8,10 +8,11 @@ Content-Type: application/json
 }
 > {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
 
-### Get All Users
-GET localhost:8000/admin/users?pageNum=1&pageSize=2
-Authorization: {{auth_token}}
-
-### Test Queue
+### Country
 GET localhost:8000/countries/iran
 Authorization: {{auth_token}}
+
+### Country Weather
+GET localhost:8000/countries/iran/weather
+Authorization: {{auth_token}}
+

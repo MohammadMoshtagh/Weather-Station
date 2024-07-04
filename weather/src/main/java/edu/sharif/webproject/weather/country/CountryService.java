@@ -4,13 +4,15 @@ import com.google.gson.JsonParseException;
 import edu.sharif.webproject.weather.country.entity.dto.CountryDto;
 import edu.sharif.webproject.weather.country.entity.dto.CountryNamesResponse;
 import edu.sharif.webproject.weather.country.entity.dto.CountryWeatherDto;
+import edu.sharif.webproject.weather.country.entity.dto.LocationDto;
 import edu.sharif.webproject.weather.external_api.ExternalApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+
+import java.text.MessageFormat;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +32,9 @@ public class CountryService {
 
     @Value("${country.weather.url}")
     private String countryWeatherUrl;
+
+    @Value("${country.city.location.url}")
+    private String cityLocationUrl;
 
 
     @Cacheable(value = "CountriesCache")
@@ -59,11 +64,22 @@ public class CountryService {
     @Cacheable(value = "WeatherCache")
     public CountryWeatherDto getCountryWeatherByCountryName(String countryName) {
         var country = getCountryByName(countryName);
-        String resourceUrl = countryWeatherUrl + country.getCapital();
+        var cityLocation = getCityLocation(country.getCapital());
+        String resourceUrl = MessageFormat.format(countryWeatherUrl, cityLocation.getLatitude(), cityLocation.getLongitude());
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Api-Key", ninjasApiKey);
 
         String responseBody = externalApiService.sendRequest(resourceUrl, HttpMethod.GET, headers, String.class).getBody();
         return countryParserService.parseCityWeather(responseBody, country.getName(), country.getCapital());
+    }
+
+    @Cacheable(value = "CityLocationCache")
+    public LocationDto getCityLocation(String cityName) {
+        String resourceUrl = cityLocationUrl + cityName;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-Api-Key", ninjasApiKey);
+
+        String responseBody = externalApiService.sendRequest(resourceUrl, HttpMethod.GET, headers, String.class).getBody();
+        return countryParserService.parseCityLocation(responseBody).get(0);
     }
 }
