@@ -9,18 +9,23 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
+      e.preventDefault();
+      const requestBody = JSON.stringify({
+        username,
+        password,
+      });
 
       fetch("http://localhost:8080/users/register", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          username,
-          password
-        }),
-      })
-        .then((res) => {
+        headers: {"Content-Type": "application/json", Accept: "application/json"},
+        body: requestBody
+        })
+        .then((res) =>{
+          
+        })
+        .then((data) => {
           alert("Registration Successful. contact with admin for activation.");
-          navigate("/")
+          navigate('/');
         })
         .catch((error) => {
           alert("Try with another username");

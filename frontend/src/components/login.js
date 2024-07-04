@@ -67,16 +67,6 @@ export default function Login() {
             />
           </div>
 
-          <div className="mb-3">
-            <div className="custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                className="custom-control-input"
-                id="customCheck1"
-              />
-            </div>
-          </div>
-
           <div className="d-grid">
             <button type="submit" className="btn btn-primary">
               Submit

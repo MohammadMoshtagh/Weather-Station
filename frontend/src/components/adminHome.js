@@ -15,7 +15,7 @@ export default function AdminHome({}) {
 
   //fetching all user
   const getAllUser = () => {
-    fetch('http://localhost:8080/admin/users?pageNum=0&pageSize=10', {
+    fetch('http://localhost:8080/admin/users?pageNum=0&pageSize=1000', {
       method: "GET",
       headers: {'Authorization': window.localStorage.getItem("Token")}
     })
@@ -23,7 +23,7 @@ export default function AdminHome({}) {
       .then((data) => {
         setData(data.users);
       }).catch((error) => {
-        console.log(error)
+        alert('There is a problem. please contact to admin!')
       });;
   };
 

@@ -25,8 +25,9 @@ export default function AdminHome({}) {
       .then((res) => res.json())
       .then((data) => {
         setData(data.tokens);
-      }).catch((error) => {
-        console.log(error)
+      }).catch((error) => {  
+
+
       });;
   };
 
@@ -53,7 +54,6 @@ export default function AdminHome({}) {
           apiKey = token.api_token
         }
       }
-      console.log(name, apiKey)
       fetch("http://localhost:8080/user/api-tokens", {
         method: "DELETE",
         headers: {
@@ -82,10 +82,10 @@ export default function AdminHome({}) {
     })
       .then((res) => res.json())
       .then((data) => {
-        window.alert('API token created!')
+        alert('API token created!')
         getAllApiTokens();
       }).catch((error) => {
-        console.log(error)
+        alert('There is a problem. please contact to admin!')
       });;
   };
 
