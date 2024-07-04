@@ -8,12 +8,8 @@ Content-Type: application/json
 }
 > {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
 
-### Change State of Users
-PUT localhost:8081/admin/users?username=mazzi&active=true
-Authorization: {{auth_token}}
-
 ### Get All Users
-GET localhost:8081/admin/users?pageNum=1&pageSize=2
+GET localhost:8000/admin/users?pageNum=1&pageSize=2
 Authorization: {{auth_token}}
 
 ### test queue

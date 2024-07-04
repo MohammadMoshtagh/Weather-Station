@@ -15,7 +15,7 @@ export default function SignUp() {
         password,
       });
 
-      fetch("http://localhost:8080/users/register", {
+      fetch("http://localhost:8000/users/register", {
         method: "POST",
         headers: {"Content-Type": "application/json", Accept: "application/json"},
         body: requestBody

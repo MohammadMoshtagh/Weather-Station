@@ -13,7 +13,7 @@ export default function Login() {
       username: email,
       password,
     });
-    fetch("http://localhost:8080/users/login", {
+    fetch("http://localhost:8000/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

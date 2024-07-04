@@ -18,7 +18,7 @@ export default function AdminHome({}) {
 
   //fetching all tokens
   const getAllApiTokens = () => {
-    fetch('http://localhost:8080/user/api-tokens?pageNum=0&pageSize=100', {
+    fetch('http://localhost:8000/user/api-tokens?pageNum=0&pageSize=100', {
       method: "GET",
       headers: {'Authorization': window.localStorage.getItem("Token")}
     })
@@ -54,7 +54,7 @@ export default function AdminHome({}) {
           apiKey = token.api_token
         }
       }
-      fetch("http://localhost:8080/user/api-tokens", {
+      fetch("http://localhost:8000/user/api-tokens", {
         method: "DELETE",
         headers: {
           'X-API-Key': apiKey,
@@ -72,7 +72,7 @@ export default function AdminHome({}) {
   const createApiToken = (formData) => {
     var expire_date = formData.expire_date += "T23:59:59Z";
     var name = formData.name;
-    fetch('http://localhost:8080/user/api-tokens', {
+    fetch('http://localhost:8000/user/api-tokens', {
       method: "POST",
       headers: {'Authorization': window.localStorage.getItem("Token"), 'Content-Type': 'application/json'},
       body: JSON.stringify({

@@ -15,7 +15,7 @@ export default function AdminHome({}) {
 
   //fetching all user
   const getAllUser = () => {
-    fetch('http://localhost:8080/admin/users?pageNum=0&pageSize=1000', {
+    fetch('http://localhost:8000/admin/users?pageNum=0&pageSize=1000', {
       method: "GET",
       headers: {'Authorization': window.localStorage.getItem("Token")}
     })
@@ -46,7 +46,7 @@ export default function AdminHome({}) {
             currenetStatus = false
         }
       }
-      fetch("http://localhost:8080/admin/users?username=" + username + "&active=" + !currenetStatus, {
+      fetch("http://localhost:8000/admin/users?username=" + username + "&active=" + !currenetStatus, {
         method: "PUT",
         headers: {'Authorization': window.localStorage.getItem("Token")}
       })
