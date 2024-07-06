@@ -6,8 +6,8 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.css";
-import Login from "./components/login";
-import SignUp from "./components/signup_component";
+import Login from "./components/login/login";
+import SignUp from "./components/signup/signup";
 import UserDetails from "./components/userDetails";
 import AdminHome from "./components/adminHome";
 import ProtectedRoute from "./components/ProtectedRoute";

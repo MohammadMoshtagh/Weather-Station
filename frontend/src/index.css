@@ -115,3 +115,7 @@ td {
 .nav-link:hover {
   text-decoration: none;
 }
+
+a {
+  text-decoration: none !important;
+}
