@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {faBan, faBolt, faGavel} from "@fortawesome/free-solid-svg-icons";
+import {faArrowCircleLeft, faArrowCircleRight, faBan, faBolt, faGavel} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useNavigate} from "react-router-dom";
 import "../App.css";
@@ -9,20 +9,25 @@ export default function AdminHome() {
     const [data, setData] = useState([]);
     const [searchQuery] = useState("")
     const [toggleButtons, setToggleButtons] = useState({})
+    const [page, setPage] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
-        getAllUser();
+        getAllUser(0);
     }, [searchQuery]);
 
     //fetching all user
-    const getAllUser = () => {
-        fetch('http://localhost:8000/admin/users?pageNum=0&pageSize=1000', {
+    const getAllUser = (pageNum) => {
+        fetch(`http://localhost:8000/admin/users?pageNum=${pageNum}&pageSize=3`, {
             method: "GET",
             headers: {'Authorization': window.localStorage.getItem("Token")}
         })
             .then((res) => res.json())
             .then((data) => {
+                if (data.users.length <= 0) {
+                    return;
+                }
+                setPage(pageNum);
                 let userToggles = {}
                 data.users.sort((a, b) => {
                     if (a.username === "admin") {
@@ -77,11 +82,19 @@ export default function AdminHome() {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    getAllUser();
+                    getAllUser(page);
                 });
         } else {
         }
     };
+
+    const changePage = (amount) => {
+        if (amount === 1) {
+            getAllUser(page + 1);
+        } else if (amount === -1 && page >= 1) {
+            getAllUser(page - 1);
+        }
+    }
 
     return (
         <div className="auth-wrapper" style={{height: "auto", marginTop: 50}}>
@@ -115,6 +128,21 @@ export default function AdminHome() {
                             </tr>
                         );
                     })}
+                    <tr style={{textAlign: "center"}}>
+                        <th></th>
+                        <th>
+                            <FontAwesomeIcon
+                                icon={faArrowCircleLeft}
+                                onClick={() => changePage(-1)}
+                            />
+                            <span className="page-num">{page}</span>
+                            <FontAwesomeIcon
+                                icon={faArrowCircleRight}
+                                onClick={() => changePage(1)}
+                            />
+                        </th>
+                        <th></th>
+                    </tr>
                 </table>
 
                 <button
