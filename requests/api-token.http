@@ -3,8 +3,8 @@ POST localhost:8000/users/login
 Content-Type: application/json
 
 {
-  "username": "hasti",
-  "password": "asdf"
+  "username": "admin",
+  "password": "admin"
 }
 > {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
 

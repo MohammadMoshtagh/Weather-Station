@@ -9,9 +9,9 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 # Define API endpoints
-COUNTRY_LIST_API = 'http://localhost:8080/countries'  # replace with actual URL
-COUNTRY_DETAIL_API = 'http://localhost:8080/countries/{name}'  # replace with actual URL
-AUTH_HEADERS = {'X-API-Key': '1abfb4e8-8c94-4e3f-a4ef-0c6dcb377f4b'}
+COUNTRY_LIST_API = 'http://localhost:8081/countries'  # replace with actual URL
+COUNTRY_DETAIL_API = 'http://localhost:8081/countries/{name}'  # replace with actual URL
+AUTH_HEADERS = {'X-API-Key': 'c3707a02-37a3-4713-bc1b-0bfa3cf773a3'}
 
 class CountryService:
 
@@ -43,5 +43,5 @@ class CountryService:
             logger.info("Country names fetched!")
             return [country["name"] for country in country_list]
         else:
-            logger.error(f"Request to fetch countries failed with status code = {response.text}")
+            logger.error(f"Request to fetch countries failed with status code = {response}")
             raise TimeoutError()

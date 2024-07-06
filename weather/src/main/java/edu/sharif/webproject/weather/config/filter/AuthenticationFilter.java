@@ -39,6 +39,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", request.getHeader("Authorization"));
+        headers.add("X-API-Key", request.getHeader("X-API-Key"));
         String userDetailsString = externalApiService.sendRequest(authenticationURL, HttpMethod.GET, headers, String.class).getBody();
         if (userDetailsString != null) {
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken("anonymous", null, null);
