@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {faBan, faBold, faBolt} from "@fortawesome/free-solid-svg-icons";
+import {faBan, faBolt, faGavel} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useNavigate} from "react-router-dom";
 import "../App.css";
@@ -24,20 +24,27 @@ export default function AdminHome() {
             .then((res) => res.json())
             .then((data) => {
                 let userToggles = {}
+                data.users.sort((a, b) => {
+                    if (a.username === "admin") {
+                        return -1;
+                    }
+                    if (a.username < b.username) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                });
                 setData(data.users);
                 for (let user of data.users) {
                     if (user.username === "admin") {
-                        userToggles["admin"] = faBold;
+                        userToggles["admin"] = faGavel;
                         continue;
                     }
                     if (user.enable === "true") {
                         userToggles[user.username] = faBolt;
-                        console.log(user.username + "faBolt");
                     } else {
                         userToggles[user.username] = faBan;
-                        console.log(user.username + "faBan");
                     }
-                    // console.log(userToggles)
                     setToggleButtons(userToggles);
                 }
             }).catch((error) => {
@@ -87,13 +94,14 @@ export default function AdminHome() {
           </span>
                 </div>
                 <table style={{width: 700}}>
+                    <tbody>
                     <tr style={{textAlign: "center"}}>
                         <th>Username</th>
                         <th>Register Date</th>
                         <th>Change Status</th>
                     </tr>
+                    </tbody>
                     {data.map((i) => {
-                        console.log(toggleButtons[i.username]);
                         return (
                             <tr style={{textAlign: "center"}}>
                                 <td>{i.username}</td>
