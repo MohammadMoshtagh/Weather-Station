@@ -8,7 +8,7 @@ import {
 import "./App.css";
 import Login from "./components/login/login";
 import SignUp from "./components/signup/signup";
-import UserDetails from "./components/userDetails";
+import UserDetails from "./components/user/user-details/userDetails";
 import AdminHome from "./components/adminHome";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useUserRole } from "./hooks/useUserRole";

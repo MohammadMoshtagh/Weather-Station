@@ -13,6 +13,10 @@ export default function SignUp() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!username || !password) {
+            alert("Please enter all fields!");
+            return;
+        }
         const requestBody = JSON.stringify({
             username,
             password,

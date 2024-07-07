@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useNavigate} from "react-router-dom";
-import "../App.css";
-import FormComponent from './apiTokenForm';
+import "./style.css"
+import "../../../App.css";
+import FormComponent from '../api-token/apiTokenForm';
 
 export default function AdminHome() {
     //setting state
@@ -26,10 +27,7 @@ export default function AdminHome() {
             .then((data) => {
                 setData(data.tokens);
             }).catch((error) => {
-
-
         });
-
     };
 
     const handleButtonClick = () => {
@@ -71,14 +69,14 @@ export default function AdminHome() {
     };
 
     const createApiToken = (formData) => {
-        var expire_date = formData.expire_date += "T23:59:59Z";
+        var expireDate = formData.expireDate += "T23:59:59Z";
         var name = formData.name;
         fetch('http://localhost:8000/user/api-tokens', {
             method: "POST",
             headers: {'Authorization': window.localStorage.getItem("Token"), 'Content-Type': 'application/json'},
             body: JSON.stringify({
                 name,
-                expire_date
+                expire_date: expireDate
             }),
         })
             .then((res) => res.json())
@@ -102,8 +100,8 @@ export default function AdminHome() {
           >
           </span>
                 </div>
-                <div>
-                    <button onClick={handleButtonClick}>create new API token</button>
+                <div className="screen-2">
+                    <button className="login" onClick={handleButtonClick}>create new API token</button>
                     {isFormOpen && (
                         <FormComponent onClose={handleCloseForm} onSubmit={createApiToken}/>
                     )}
@@ -111,8 +109,8 @@ export default function AdminHome() {
                 <table style={{width: 700}}>
                     <tr style={{textAlign: "center"}}>
                         <th>Token Name</th>
-                        <th>Expiretion Date</th>
-                        <th>Detele</th>
+                        <th>Expiration Date</th>
+                        <th>Delete</th>
                     </tr>
                     {data.map((i) => {
                         return (

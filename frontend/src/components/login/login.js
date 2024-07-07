@@ -13,6 +13,10 @@ export default function Login() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (!email || !password) {
+            alert("Please enter all fields!");
+            return;
+        }
         const requestBody = JSON.stringify({
             username: email,
             password,
