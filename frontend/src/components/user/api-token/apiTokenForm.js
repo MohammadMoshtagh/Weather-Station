@@ -21,22 +21,24 @@ const FormComponent = ({onClose, onSubmit}) => {
     };
 
     return (
-        <div className="screen-1" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <div className="email">
-                <label htmlFor="token-name">Token Name</label>
-                <div className="sec-2">
-                    <FontAwesomeIcon
-                        icon={faChain}
-                    />
-                    <input name="token-name"
-                           onChange={(e) => setName(e.target.value)} required={true}/>
+        <div className="screen-3">
+            <div className="row-inputs">
+                <div className="email">
+                    <label htmlFor="token-name">Token Name</label>
+                    <div className="sec-2">
+                        <FontAwesomeIcon
+                            icon={faChain}
+                        />
+                        <input name="token-name"
+                               onChange={(e) => setName(e.target.value)} required={true}/>
+                    </div>
                 </div>
-            </div>
-            <div className="date">
-                <label htmlFor="expiration-date">Expiration Date</label>
-                <div className="sec-2">
-                    <input name="expiration-date" type="date" value={expireDate}
-                           onChange={(e) => setExpireDate(e.target.value)} required={true}/>
+                <div className="date">
+                    <label htmlFor="expiration-date">Expiration Date</label>
+                    <div className="sec-2">
+                        <input name="expiration-date" type="date" value={expireDate}
+                               onChange={(e) => setExpireDate(e.target.value)} required={true}/>
+                    </div>
                 </div>
             </div>
             <div className="footer">
