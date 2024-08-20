@@ -1,0 +1,14 @@
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+COPY ./weather ./weather
+COPY ./user-management ./user-management
+COPY pom.xml .
+COPY ./.mvn ./.mvn
+
+RUN ./weather/mvnw dependency:resolve
+
+RUN ./weather/mvnw package
+
+ENTRYPOINT ["java", "-jar", "weather/target/weather-0.0.1-SNAPSHOT.jar"]

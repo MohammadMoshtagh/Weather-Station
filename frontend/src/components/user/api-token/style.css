@@ -1,0 +1,105 @@
+* {
+    font-family: "Poppins";
+}
+
+.screen-3 {
+    background: #f1f7fe;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    border-radius: 30px;
+    box-shadow: 0 0 2em #e6e9f9;
+    gap: 1em;
+}
+.screen-3 .row-inputs {
+    padding-bottom: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: auto;
+    border-radius: 30px;
+    gap: 2em;
+}
+.screen-3 .email {
+    background: white;
+    box-shadow: 0 0 2em #e6e9f9;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    border-radius: 20px;
+    color: #4d4d4d;
+    margin-top: 0em;
+}
+.screen-3 .email input {
+    outline: none;
+    border: none;
+}
+.screen-3 .email input::-moz-placeholder {
+    color: black;
+    font-size: 0.9em;
+}
+.screen-3 .email input:-ms-input-placeholder {
+    color: black;
+    font-size: 0.9em;
+}
+.screen-3 .email input::placeholder {
+    color: black;
+    font-size: 0.9em;
+}
+.screen-3 .date {
+    background: white;
+    box-shadow: 0 0 2em #e6e9f9;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    border-radius: 20px;
+    color: #4d4d4d;
+}
+.screen-3 .date input {
+    outline: none;
+    border: none;
+}
+.screen-3 .date input::-moz-placeholder {
+    color: black;
+    font-size: 0.9em;
+}
+.screen-3 .date input:-ms-input-placeholder {
+    color: black;
+    font-size: 0.9em;
+}
+.screen-3 .date input::placeholder {
+    color: black;
+    font-size: 0.9em;
+}
+.screen-3 .login {
+    padding: 1em;
+    background: #3e4684;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+}
+.screen-3 .footer {
+    display: flex;
+    font-size: 0.7em;
+    color: #5e5e5e;
+    gap: 14em;
+    padding-bottom: 0;
+}
+.screen-3 .footer span {
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+}
+
+input {
+    padding-left: 10px;
+    font-size: 15pt;
+}

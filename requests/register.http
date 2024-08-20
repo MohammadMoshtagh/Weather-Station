@@ -1,0 +1,22 @@
+### Register User
+POST localhost:8000/users/register
+Content-Type: application/json
+
+{
+  "username": "aliz",
+  "password": "asdf"
+}
+
+### Login User
+POST localhost:8000/users/login
+Content-Type: application/json
+
+{
+  "username": "hasti",
+  "password": "asdf"
+}
+> {% client.global.set("auth_token", response.headers.valueOf("Authorization")) %}
+
+### Test (should be successful)
+GET localhost:8000/countries/iran
+Authorization: {{auth_token}}
